@@ -16,15 +16,15 @@ services:
       - database
 
   database:
-    image: postgres
+    image: mysql
     env_file:
       - docker/database/.env
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/mysql/
     networks:
       - diplom
     ports:
-      - 5432:5432
+      - 3306:3306
 
   nginx:
     image: nginx
