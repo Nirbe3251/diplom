@@ -1,0 +1,17 @@
+Название проекта
+<div><%= @project.name %></div>
+
+<div>Добавить пользователя
+<select>
+    <option value="" disabled>Select one--</option>
+   <% @project.excluded_users do |u| %>
+    <option><%= u.email %></option>
+   <% end %> 
+</select>
+</div>
+Пользователи
+<select>
+    <% @project.users.each do |u| %>
+    <option><%= u.email %></option>
+    <% end %>
+</select>
