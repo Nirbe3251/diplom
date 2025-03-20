@@ -1,9 +1,8 @@
 class ProjectUsers < ActiveRecord::Migration[7.0]
   def up
     create_table :project_users do |t|
-      t.integer :project_id, null: false
-      t.integer :user_id, null: false
-      t.timestamps
+      t.belongs_to :project, null: false
+      t.belongs_to :user, null: false
     end
   end
 

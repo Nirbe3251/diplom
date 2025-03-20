@@ -1,9 +1,11 @@
 class AddProjects < ActiveRecord::Migration[7.0]
   def up
     create_table :projects do |t|
-      t.string :name, null: false, index: true
+      t.string :title, null: false, index: true
+      t.text :description, null: true, limit: 150
       t.belongs_to :user, null: false, index: true
-      t.timestamps
+      t.datetime :start_at, null: false
+      t.datetime :end_at
     end
   end
 

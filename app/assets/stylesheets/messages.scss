@@ -1,0 +1,39 @@
+.messages {
+  overflow: none;
+  position: relative;
+  height: 60vh;
+  border: 1px solid #f0f0f0;
+  background-color: white;
+
+  &-inner {
+    overflow: auto;
+    position: absolute;
+    max-height: 60vh;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .message {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.avatar {
+  height: 60px;
+  width: 60px;
+  border-radius: 100%;
+}
+
+.message-image {
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+}
+
+.card-header {
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}

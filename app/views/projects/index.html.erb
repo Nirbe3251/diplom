@@ -1,12 +1,13 @@
-<h1>Проекты</h1>
-Создать проект
+<%# <h1>Проекты</h1>
+Создать проект %>
 <div class="create_project">
-    <%= form_with url: "/projects", method: :post do |f| %>
-        <%= f.label :name,"Название проекта" %>
-        <%= f.text_field :name %>
-        <%= f.submit %>
-    <% end %>
+    <%#= form_with url: "/projects", method: :post do |f| %>
+        <%#= f.label :title,"Название проекта" %>
+        <%# f.text_field :title %>
+        <%# f.date_field :start_at %>
+        <%# f.submit %>
+    <%# end %>
 </div>
-<% @projects.each do |project| %>
-    <div><%= link_to project.name, project_path(id: project.id)  %></div>
-<% end %>
+<%# @projects.each do |project| %>
+    <div><%#= link_to project.title, project_path(id: project.id)  %></div>
+<%# end %>

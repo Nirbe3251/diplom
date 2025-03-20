@@ -4,7 +4,9 @@ services:
     build:
       context: ./
       dockerfile: docker/Dockerfile
-    command: bundle exec rails s -b 0.0.0.0 -p 3000
+    command: bin/dev
+    entrypoint: docker/entrypoint.sh
+    tty: true
     volumes:
       - ./:/app
     networks:

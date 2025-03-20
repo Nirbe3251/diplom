@@ -1,6 +1,14 @@
 class ProjectsController < ApplicationController
   before_action :find_project, only: %i[show add_user]
 
+  def self.show_in_navbar?
+    true
+  end
+
+  def self.page_head
+    'Projects'
+  end
+
   def index
     @projects = Project.all
   end
@@ -8,7 +16,7 @@ class ProjectsController < ApplicationController
   def show; end
 
   def create
-    @project = Project.new(params.permit(%i[name user_id]))
+    @project = Project.new(params.permit(%i[title user_id start_at]))
     @project.user_id = current_user.id
     return unless @project.save
 

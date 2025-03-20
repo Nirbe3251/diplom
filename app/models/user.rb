@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_many :project_users, class_name: 'ProjectUser'
   has_many :projects, through: :project_users, dependent: :destroy
+  belongs_to :roles, class_name: 'Role', optional: true
 end

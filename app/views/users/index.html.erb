@@ -1,0 +1,60 @@
+<section>
+  <div class="container py-5">
+    <div class="row">
+          <div class="col-lg-4">
+            <div class="card mb-4">
+              <div class="card-body text-center">
+            <h5 class="my-3"><%= @user.name %></h5>
+            <div class="d-flex justify-content-center mb-2">
+              <% if current_user.id == @user.id %>
+                <%= link_to 'Редактировать', edit_user_registration_path, class: 'btn btn-primary' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Имя</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><%= @user.name %></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Почта</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><%= @user.email %></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Фамилия</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><%= @user.surname %></p>
+              </div>
+            </div>
+            <hr> 
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Роль</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><%= @user.roles&.name %></p>
+              </div>
+            </div>
+            <hr>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
