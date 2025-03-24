@@ -1,0 +1,190 @@
+<% if Role.all.present?%>
+      <section>
+        <div class="container-fluid">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800"></h1>
+          <a href="" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#usersModal"><i class="fas fa-download fa-sm text-white-50"></i>Создать роль</a>
+        </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="table-responsive ">
+        <table class="table align-items-center mb-0 text-wrap">
+          <thead>
+            <tr>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+              <% @roles.each do |role| %>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><%= role.name %><i class="bi bi-pencil-fill ml-2" data-toggle="modal" data-target="#editRoleModal-<%= role.id %>"></i></th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% Role.column_names.dup.delete_if {|n| /^id$/ =~ n || /^name$/ =~ n }.each do |column_name| %>
+              <tr>
+                <td class="align-middle text-center">
+                  <span class="text-secondary text-sm font-weight-bold">
+                    <%= Role::NAMES[column_name.to_sym] %>
+                  </span>
+                </td>
+                <% @roles.each do |role| %>
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-sm font-weight-bold">
+                      <%= role.send("#{column_name}_show_data") %>
+                    </span>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<div class="modal fade" id="usersModal" tabindex="-1" role="dialog" aria-labelledby="usersModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="usersModalLabel">Создание роли</h5>
+      </div>
+        <%= form_for "", url: "/roles", method: :post, remote: true do |f| %>
+        <div class="modal-body">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>
+                Название роли
+              </td>
+              <td>
+                <%= f.text_field :name, class: "form-control form-control-user" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Создание тест-кейсов
+              </td>
+              <td>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:create_test_case, options_for_select([["Да", 1], ["Нет", 0]]),{}, { prompt: "Выберите проект", class: "form-control form-control-user", role: 'button'}) %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Создание чек-листов
+              </td>
+              <td>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:create_check_list, options_for_select([["Да", 1], ["Нет", 0]]),{}, { prompt: "Выберите проект", class: "form-control form-control-user", role: 'button'}) %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Создание тест-плана
+              </td>
+              <td>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:create_test_plan, options_for_select([["Да", 1], ["Нет", 0]]),{}, { prompt: "Выберите проект", class: "form-control form-control-user", role: 'button'}) %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Создание баг-репорта
+              </td>
+              <td>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:create_bug_report, options_for_select([["Да", 1], ["Нет", 0]]),{}, { prompt: "Выберите проект", class: "form-control form-control-user", role: 'button'}) %>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+          <%= f.submit "Сохранить", class: "btn btn-primary btn-user" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% @roles.each do |role| %>
+<div class="modal fade" id="editRoleModal-<%= role.id %>" tabindex="-1" role="dialog" aria-labelledby="editRoleModalLabel-<%= role.id %>" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editRoleModalLabel">Создание роли</h5>
+      </div>
+        <%= form_for "", url: "/roles", method: :post, remote: true do |f| %>
+        <div class="modal-body">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>
+                Название роли
+              </td>
+              <td>
+                <%= f.text_field :name, class: "form-control form-control-user", value: role.name %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Создание тест-кейсов
+              </td>
+              <td>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:create_test_case, options_for_select([["Да", 1], ["Нет", 0]], role.create_test_case),{ }, { prompt: "Выберите проект", class: "form-control form-control-user", role: 'button'}) %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Создание чек-листов
+              </td>
+              <td>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:create_check_list, options_for_select([["Да", 1], ["Нет", 0]], role.create_check_list),{}, { prompt: "Выберите проект", class: "form-control form-control-user", role: 'button'}) %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Создание тест-плана
+              </td>
+              <td>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:create_test_plan, options_for_select([["Да", 1], ["Нет", 0]], role.create_test_plan),{}, { prompt: "Выберите проект", class: "form-control form-control-user", role: 'button'}) %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Создание баг-репорта
+              </td>
+              <td>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:create_bug_report, options_for_select([["Да", 1], ["Нет", 0]], role.create_bug_report),{}, { prompt: "Выберите проект", class: "form-control form-control-user", role: 'button'}) %>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+          <%= f.submit "Сохранить", class: "btn btn-primary btn-user" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>

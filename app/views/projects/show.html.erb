@@ -1,17 +1,105 @@
-Название проекта
-<div><%= @project.title %></div>
+<style>
+.topbar-divider {
+    width: 0;
+    border-right: 1px solid #e3e6f0;
+}   
+</style>
+<section>
+  <div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="align-center h3 text-gray-800">Project</h1>
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <h1 class="h3 mb-0 text-gray-800"></h1>
+            <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-1" data-toggle="modal" data-target="#usersModal">
+                <i class="bi bi-people-fill"></i>
+            </button>
+            <a href="<%= edit_project_path %>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Edit project</a>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+                <div class="col-sm-2 align-middle">
+                    <p class="mb-0">Название проекта</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-8">
+                    <text class="text-center"><%= @project.title %></text>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="mb-0">Начало проекта</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-9">
+                    <text class="text-center"><%= @project.start_at %></text>
+                    <%#= f.date_field :start_at, class: "form-control form-control-user" %>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+            <div class="col-sm-2">
+                <p class="mb-0">Завершение проекта</p>
+            </div>
+            <i class="topbar-divider"></i>
+            <div class="form-group col-sm-9">
+                <text class="text-center"><%= @project.end_at %></text>
+            </div>
+            </div>
+            <hr>
+            <div class="row">
+            <div class="col-sm-2">
+                <p class="mb-0">Описание </p>
+            </div>
+            <i class="topbar-divider"></i>
+            <div class="form-group col-sm-9">
+                <textarea id="text_info" class="form-control form-control-user" readonly contenteditable=plaintext-only field-sizing=content><%= @project.description %></textarea>
+            </div>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div>Добавить пользователя
-<select>
-    <option value="" disabled>Select one--</option>
-   <% @project.excluded_users do |u| %>
-    <option><%= u.email %></option>
-   <% end %> 
-</select>
+<!-- room peoples -->
+<div class="modal fade" id="usersModal" tabindex="-1" role="dialog" aria-labelledby="usersModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="usersModalLabel">Пользователи</h5>
+      </div>
+        <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Имя</th>
+              <th scope="col">Роль</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @project.users.each do |u| %>
+                <tr>
+                    <td>
+                        <%= link_to u.name, user_path(u.id) %>
+                    </td>
+                    <td>
+                        <%= u.roles %>
+                    </td>
+                </tr>
+            <% end %>
+          </tbody>
+        </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+        </div>
+    </div>
+  </div>
 </div>
-Пользователи
-<select>
-    <% @project.users.each do |u| %>
-    <option><%= u.email %></option>
-    <% end %>
-</select>

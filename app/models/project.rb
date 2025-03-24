@@ -1,6 +1,7 @@
 class Project < ApplicationRecord
   has_many :project_users, class_name: 'ProjectUser'
   has_many :users, through: :project_users, dependent: :destroy
+  has_many :test_cases
 
   before_create do |_p|
     users << User.find(user_id)

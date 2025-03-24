@@ -1,61 +1,4 @@
 <!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <title>Диплом</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbolinks-cache-control" content="no-cache">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %> 
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true  %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  </head>
-  <style>
-    .hide-font {
-      color: rgba(33, 37, 41, 1)
-    }
-  </style>
-
- <%# <body data-user=' current_user.present? ? current_user.id : nil %>
-  
-  <%# <nav class='navbar navbar-expand-lg navbar-dark bg-dark'> %>
-    <%# <div class='container-fluid'> %>
-      <%# if !devise_controller? || current_page?('/users/edit')  %>
-      <%# <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'> %>
-        <%# <span class='navbar-toggler-icon'></span> %>
-      <%# </button> %>
-      <%# <div class='collapse navbar-collapse' id='navbarSupportedContent'> %>
-        <%# <ul class='navbar-nav me-auto mb-2 mb-lg-0'> %>
-          <%# <li class='nav-item'> %>
-            <%# <a class='nav-link active root-path' aria-current='page' href='/' remote='true'>Главная</a> %>
-          <%# </li> %>
-          <%#if current_user.present? %>
-            <%# <li class='nav-item'> %>
-              <%# <a class='nav-link active' aria-current='page' href="<%#= user_path current_user.id>Профиль</a>%>
-            <%# </li> %>
-            <%# <li class='nav-item'> %>
-              <%# link_to 'Выйти', destroy_user_session_path, class: 'nav-link active', data: { "turbo-method": :delete } %>
-            <%# </li> %>
-          <%# else %>
-            <%# <li class='nav-item'> %>
-              <%#= link_to 'Войти', new_user_session_path, class: 'nav-link active'%>
-              <%# <a class='nav-link active' aria-current='page' href="">Войти</a> %>
-            <%# </li> %>
-          <%# end %>
-        <%# </ul> %>
-      <%# end %>
-      <%# </div>
-    </div>
-  </nav> %>
-  <%# <div class="container">
-    <div class="row justify-content-md-center">
-      <div class="col-12"> %>
-        <%#= yield %>
-      <%# </div>
-    </div>
-  </div> %>
-  <%# </body>
-</html> %>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -74,18 +17,17 @@
     <meta name="author" content="">
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+    .hide-font {
+      color: rgba(33, 37, 41, 1)
+    }
+  </style>
 
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -97,7 +39,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Application</div>
             </a>
 
             <!-- Divider -->
@@ -120,8 +62,7 @@
 
             <% select_controllers.each do |data| %>
               <li class="nav-item">
-                <a class="nav-link collapsed" href="<%= data[:path] %>" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="<%= data[:path] %>">
                     <i class="fas fa-fw fa-cog"></i>
                     <span><%= data[:controller] %></span>
                 </a>
@@ -150,47 +91,9 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+            <%# <hr class="sidebar-divider d-none d-md-block"> %>
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -198,11 +101,7 @@
             </div>
 
             <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-            </div>
+
 
         </ul>
         <!-- End of Sidebar -->
@@ -288,13 +187,8 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                   <!-- Page Heading -->
-                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                      <h1 class="h3 mb-0 text-gray-800"><%= current_page %></h1>
-                  </div>
-
-                  
+                    <%= yield %>
                 </div>
-                <%= yield %>
                 <!-- /.container-fluid -->
 
             </div>
@@ -333,24 +227,5 @@
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
-
 </body>
-
 </html>

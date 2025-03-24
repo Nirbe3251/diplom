@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
+  layout nil
+
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
-  # def new
-  #   super
-  # end
+  def new
+    super
+  end
 
   # POST /resource/sign_in
   # def create
-    # super
-    # UserStatus.make_online(user)
+  # super
+  # UserStatus.make_online(user)
   # end
 
   # DELETE /resource/sign_out

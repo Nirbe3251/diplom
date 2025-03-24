@@ -1,0 +1,51 @@
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-body">
+            <%= form_for '', url: "/projects", method: :post do |f|%>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Название проекта<i style="color: red" >*</i></p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_field :title, class: "form-control form-control-user", placeholder: "Введите название проекта" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Начало проекта<i style="color: red">*</i></p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.date_field :start_at, class: "form-control form-control-user" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Завершение проекта</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.date_field :end_at, class: "form-control form-control-user" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Описание </p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :description, class: "form-control form-control-user", maxlength: 5000, style: "min-height: 3rem", placeholder: 'Введите описание проекта' %>
+                </div>
+              </div>
+              <hr>
+              <%= f.submit "Сохранить", class: "btn btn-primary btn-user btn-block" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

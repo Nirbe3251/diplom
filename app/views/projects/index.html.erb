@@ -1,13 +1,29 @@
-<%# <h1>Проекты</h1>
-Создать проект %>
-<div class="create_project">
-    <%#= form_with url: "/projects", method: :post do |f| %>
-        <%#= f.label :title,"Название проекта" %>
-        <%# f.text_field :title %>
-        <%# f.date_field :start_at %>
-        <%# f.submit %>
-    <%# end %>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"><%= current_page %></h1>
+<%# <div class="d-sm-flex align-items-center justify-content-between mb-4"> %>
+    <h1 class="h3 mb-0 text-gray-800"></h1>
+    <a href="<%= new_project_path %>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Create project</a>
+<%# </div> %>
 </div>
-<%# @projects.each do |project| %>
-    <div><%#= link_to project.title, project_path(id: project.id)  %></div>
-<%# end %>
+<div class="row">
+    <!-- Earnings (Monthly) Card Example -->
+    <% @projects.each do |project|%>
+        <div class="col-12 mb-3">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="h5 font-weight-bold text-primary text-uppercase mb-1">
+                                <a href="<%= project_path(id: project.id) %>"><%= project.title %>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>
