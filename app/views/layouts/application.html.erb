@@ -45,13 +45,6 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -160,10 +153,6 @@
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 <%= link_to "Профиль", user_path(id: current_user.id), class: "dropdown-item" %>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
                                 <%= link_to "Настройки", edit_user_registration_path(id: current_user.id), class: "dropdown-item" %>
                                 <div class="dropdown-divider"></div>
                                 <%= link_to 'Выйти', destroy_user_session_path(id: current_user.id), class: 'dropdown-item', data: { "turbo-method": :delete } %>
