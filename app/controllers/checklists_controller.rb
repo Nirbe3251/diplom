@@ -4,7 +4,7 @@ class ChecklistsController < ApplicationController
   def index; end
 
   def create
-    checklist = CheckList.new(params.permit(%i[head checklist expected_result test_module test_type]))
+    checklist = Checklist.new(params.permit(%i[head checklist expected_result test_module test_type]))
     return unless checklist.save
 
     render json: { checklist: }
