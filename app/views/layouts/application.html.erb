@@ -164,7 +164,7 @@
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Settings
                                 </a>
-                                <%= link_to "Настройки", edit_user_path(id: current_user.id), class: "dropdown-item" %>
+                                <%= link_to "Настройки", edit_user_registration_path(id: current_user.id), class: "dropdown-item" %>
                                 <div class="dropdown-divider"></div>
                                 <%= link_to 'Выйти', destroy_user_session_path(id: current_user.id), class: 'dropdown-item', data: { "turbo-method": :delete } %>
                             </div>
