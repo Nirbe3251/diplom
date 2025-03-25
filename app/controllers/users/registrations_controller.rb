@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  layout :resolve_layout
+  layout :resolve_layout, only: %i[edit]
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -17,14 +17,31 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
   # def edit
-  #   layout 'application'
+  #   Rails.logger.info "Registration controller action: #{action_name}"
   #   super
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+
+    Rails.logger.info "Update resource params #{account_update_params}"
+
+    resource_updated = update_resource(resource, account_update_params)
+    Rails.logger.info "Updated resource #{resource_updated.inspect}"
+    yield resource if block_given?
+    if resource_updated
+      set_flash_message_for_update(resource, prev_unconfirmed_email)
+      bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
+
+      respond_with resource, location: after_update_path_for(resource)
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -62,12 +79,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
   #
+  #
+  private
+
   def resolve_layout
-    case action_name
-    when 'new'
-      'admin'
-    when 'edit'
-      'application'
-    end
+    Rails.logger.info "Registration controller action: #{action_name}"
+    'layouts/application'
   end
 end

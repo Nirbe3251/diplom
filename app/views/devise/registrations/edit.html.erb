@@ -1,8 +1,11 @@
 <section>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-12">
-        <div class="card mb-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-8">
+        <div class="card mb-5 o-hidden border-0 shadow-lg py-5 mt-5">
+          <div class="text-center">
+            <h1 class="h4 text-gray-900 mb-4">Редактирование аккаунта</h1>
+          </div>
           <div class="card-body">
             <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
               <div class="row">
@@ -10,7 +13,25 @@
                   <p class="mb-0">Почта</p>
                 </div>
                 <div class="form-group col-sm-9">
-                  <%= f.email_field :email, autofocus: true, autocomplete: "email", value: resource.email %>
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", value: resource.email, class: "form-control form-control-user" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Имя</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_field :name, autofocus: true, autocomplete: "name", value: resource.name, class: "form-control form-control-user" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Фамилия</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_field :surname, autofocus: true, autocomplete: "surname", value: resource.surname, class: "form-control form-control-user" %>
                 </div>
               </div>
               <hr>
@@ -28,24 +49,33 @@
                   <p class="mb-0">Подтвердите пароль</p>
                 </div>
                 <div class="form-group col-sm-9">
-                  <%= f.label :password_confirmation, class: "form-control form-control-user" %><br />
+                  <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control form-control-user" %>
                 </div>
               </div>
               <hr>
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Текущий пароль(введите для подтверждения изменений)</p>
+                  <p class="mb-0">Текущий пароль</p>
                 </div>
                 <div class="form-group col-sm-9">
-                  <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control form-control-user" %>
+                  <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control form-control-user", placeholder: "введите для подтверждения изменений" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Роль</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:roles_id, options_for_select(Role.all.collect {|role| [role.name, role.id]}, resource.roles&.id),{ include_blank: "Выберите роль"}, {class: "form-control form-control-user"  }) %>
                 </div>
               </div>
               <hr>
               <%= f.submit "Сохранить", class: "btn btn-primary btn-user btn-block" %>
+              <hr>
+              <%= button_to "Удалить аккаунт", registration_path(resource_name), data: { confirm: "Вы уверены?", turbo_confirm: "Вы уверены?" }, method: :delete, class: "btn btn-danger btn-user btn-block" %></div>
             </div>
           <% end %>
-          <hr>
-          <%= button_to "Удалить аккаунт", registration_path(resource_name), data: { confirm: "Вы уверены?", turbo_confirm: "Вы уверены?" }, method: :delete, class: "btn btn-danger btn-user btn-block" %></div>
         </div>
       </div>
     </div>

@@ -71,7 +71,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:create_test_case, options_for_select([["Да", 1], ["Нет", 0]]),{}, { prompt: "Выберите проект", class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:create_test_case, options_for_select([["Да", 1], ["Нет", 0]]),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -81,7 +81,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:create_check_list, options_for_select([["Да", 1], ["Нет", 0]]),{}, { prompt: "Выберите проект", class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:create_check_list, options_for_select([["Да", 1], ["Нет", 0]]),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -91,7 +91,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:create_test_plan, options_for_select([["Да", 1], ["Нет", 0]]),{}, { prompt: "Выберите проект", class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:create_test_plan, options_for_select([["Да", 1], ["Нет", 0]]),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -101,7 +101,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:create_bug_report, options_for_select([["Да", 1], ["Нет", 0]]),{}, { prompt: "Выберите проект", class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:create_bug_report, options_for_select([["Да", 1], ["Нет", 0]]),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -122,9 +122,10 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editRoleModalLabel">Создание роли</h5>
+        <h5 class="modal-title" id="editRoleModalLabel">Редактирование роли</h5>
+        <%= button_to 'Удалить', "/roles/#{role.id}", method: :delete, class: 'btn btn-danger', data: { confirm: "Вы действительно хотите покинуть комнату?", turbo_confirm: "Are you sure?" } %>
       </div>
-        <%= form_for "", url: "/roles", method: :post, remote: true do |f| %>
+        <%= form_for "", url: "/roles/#{role.id}", method: :put, remote: true do |f| %>
         <div class="modal-body">
         <table class="table">
           <tbody>
@@ -182,8 +183,9 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
           <%= f.submit "Сохранить", class: "btn btn-primary btn-user" %>
+           <% end %>
         </div>
-      <% end %>
+     
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :find_project, only: %i[show add_user]
+  before_action :find_project, only: %i[show add_users]
 
   def self.show_in_navbar?
     true
@@ -25,8 +25,8 @@ class ProjectsController < ApplicationController
     render plain: 'ok'
   end
 
-  def add_user
-    @project.users << User.find(params[:user_id])
+  def add_users
+    @project.users << User.where(id: params[:user_ids])
   end
 
   private

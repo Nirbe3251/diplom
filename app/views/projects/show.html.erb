@@ -7,7 +7,7 @@
 <section>
   <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="align-center h3 text-gray-800">Project</h1>
+        <h1 class="align-center h3 text-gray-800">Проект</h1>
         <div class="d-sm-flex align-items-center justify-content-between">
             <h1 class="h3 mb-0 text-gray-800"></h1>
             <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-1" data-toggle="modal" data-target="#usersModal">
@@ -73,6 +73,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="usersModalLabel">Пользователи</h5>
+        <%= link_to 'Добавить', "", class: 'btn btn-primary', data: { target: "#usersModalAdd", toggle: "modal" } %>
       </div>
         <div class="modal-body">
         <table class="table">
@@ -89,7 +90,7 @@
                         <%= link_to u.name, user_path(u.id) %>
                     </td>
                     <td>
-                        <%= u.roles %>
+                        <%= u.roles&.name %>
                     </td>
                 </tr>
             <% end %>
@@ -99,6 +100,49 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
         </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="usersModalAdd" tabindex="-1" role="dialog" aria-labelledby="usersModalAddLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="usersModalAddLabel">Добавить пользователя</h5>
+      </div>
+        <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Имя</th>
+              <th scope="col">Роль</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= form_for "", url: add_users_project_path, method: :post, multiplie: true do |f| %>
+              <% User.all.where.not(id: @project.users.pluck(:id)).each do |u| %>
+                  <tr>
+                      <td>
+                          <%= link_to u.name, user_path(u.id) %>
+                      </td>
+                      <td>
+                          <%= u.roles&.name %>
+                      </td>
+                      <td>
+                        <%= check_box_tag 'user_ids[]', u.id %>
+                      </td>
+                  </tr>
+              <% end %>
+            
+          </tbody>
+        </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+          <%= f.submit "Добавить", class: "btn btn-primary"  %>
+        </div>
+        <% end %>
     </div>
   </div>
 </div>
