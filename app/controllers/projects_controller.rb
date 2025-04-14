@@ -28,7 +28,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(project_params)
+    @project = Project.new(params.require(:project).permit(project_params))
     @project.user_id = current_user.id
     return unless @project.save
 
