@@ -144,20 +144,22 @@
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="<%= user_path(id: current_user.id ) %>" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%= current_user.name %></span>
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <%= link_to "Профиль", user_path(id: current_user.id), class: "dropdown-item" %>
-                                <%= link_to "Настройки", edit_user_registration_path(id: current_user.id), class: "dropdown-item" %>
-                                <div class="dropdown-divider"></div>
-                                <%= link_to 'Выйти', destroy_user_session_path(id: current_user.id), class: 'dropdown-item', data: { "turbo-method": :delete } %>
-                            </div>
-                        </li>
+                        <% if current_user.present? %>
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="<%= user_path(id: current_user.id ) %>" id="userDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%= current_user.name %></span>
+                                </a>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="userDropdown">
+                                    <%= link_to "Профиль", user_path(id: current_user.id), class: "dropdown-item" %>
+                                    <%= link_to "Настройки", edit_user_registration_path(id: current_user.id), class: "dropdown-item" %>
+                                    <div class="dropdown-divider"></div>
+                                    <%= link_to 'Выйти', destroy_user_session_path(id: current_user.id), class: 'dropdown-item', data: { "turbo-method": :delete } %>
+                                </div>
+                            </li>
+                        <% end %>
 
                     </ul>
 

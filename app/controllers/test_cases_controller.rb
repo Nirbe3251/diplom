@@ -10,8 +10,7 @@ class TestCasesController < ApplicationController
   def new; end
 
   def create
-    test_case = TestCase.new(params.permit(%i[title steps expected_result requirement test_module test_data
-                                              postconditions priority_id project_id]))
+    test_case = TestCase.new(params.permit(test_case_params))
 
     if test_case.save
       render json: { test_case: test_case.as_json }
@@ -22,9 +21,18 @@ class TestCasesController < ApplicationController
 
   def show; end
 
+  def update
+    @test_case.update(params.permit(test_case_params))
+  end
+
   private
 
   def find_test_case
     @test_case = TestCase.find_by(id: params[:id])
+  end
+
+  def test_case_params
+    %i[title steps expected_result requirement test_module test_data
+                                              postconditions priority_id project_id]
   end
 end
