@@ -1,4 +1,6 @@
 class TestCasesController < ApplicationController
+  before_action :find_test_case, only: %i[show edit update]
+
   def self.show_in_navbar? = true
 
   def index
@@ -18,9 +20,11 @@ class TestCasesController < ApplicationController
     end
   end
 
+  def show; end
+
   private
 
   def find_test_case
-    @test_case = TestCase.find_by(id:)
+    @test_case = TestCase.find_by(id: params[:id])
   end
 end
