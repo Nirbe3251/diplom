@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :find_project, only: %i[show add_users edit update]
+  before_action :find_project, only: %i[show add_users edit update destroy]
 
   def self.show_in_navbar?
     true
@@ -41,7 +41,13 @@ class ProjectsController < ApplicationController
     @project.users << User.where(id: params[:user_ids])
   end
 
-  def delete; end
+  def destroy
+    if @project.destroy
+      redirect_to projects_path
+    else
+      redirect_back(fallback_location: project_path)
+    end
+  end
 
   private
 

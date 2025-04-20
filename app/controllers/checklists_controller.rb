@@ -18,8 +18,6 @@ class ChecklistsController < ApplicationController
     else
       render json: { checklist_error: checklist.errors.full_messages.join(', ') }
     end
-
-    render json: { checklist: }
   end
 
   def update
