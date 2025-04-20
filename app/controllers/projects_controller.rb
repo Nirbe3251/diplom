@@ -31,7 +31,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(params.permit(project_params))
     @project.user_id = current_user.id
     if @project.save
-      redirect project_path(id: @project.id)
+      redirect_to project_path(id: @project.id)
     else
       render json: { error: true }
     end

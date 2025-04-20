@@ -12,7 +12,12 @@ class ChecklistsController < ApplicationController
 
   def create
     checklist = Checklist.new(params.permit(check_list_params))
-    return unless checklist.save
+
+    if checklist.save
+      redirect_to checklist_path(id: checklist.id)
+    else
+      render json: { checklist_error: checklist.errors.full_messages.join(', ') }
+    end
 
     render json: { checklist: }
   end
