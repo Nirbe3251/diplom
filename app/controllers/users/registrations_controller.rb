@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  layout :resolve_layout, only: %i[edit]
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -84,6 +83,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def resolve_layout
     Rails.logger.info "Registration controller action: #{action_name}"
-    'layouts/application'
+    action_name == 'new' ? 'admin' : 'layouts/application'
   end
 end

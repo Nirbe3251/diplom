@@ -1,0 +1,11 @@
+ru:
+  project:
+    name: Проект
+  role:
+    name: Роль
+  checklist:
+    name: Чек-лист
+  test_case:
+    name: Тест-кейс
+  bug_report:
+    name: Баг-репорт

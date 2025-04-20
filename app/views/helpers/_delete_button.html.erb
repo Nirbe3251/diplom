@@ -1,0 +1,3 @@
+<%= link_to object, class: "d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm", data: { "turbo-method": :delete, turbo_confirm: "Вы уверены что хотите удалить #{object.humanize}?" } do %>
+    <%= "Удаление #{object.humanize}а" %>
+<% end %>

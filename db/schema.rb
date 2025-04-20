@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_03_20_191341) do
+ActiveRecord::Schema[7.0].define(version: 2025_04_19_225753) do
   create_table "attachments", charset: "utf8mb3", force: :cascade do |t|
     t.text "description", size: :tiny
     t.string "file_name"
@@ -31,6 +31,13 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_20_191341) do
     t.index ["project_id"], name: "index_bug_reports_on_project_id"
     t.index ["severity_id"], name: "index_bug_reports_on_severity_id"
     t.index ["status_id"], name: "index_bug_reports_on_status_id"
+  end
+
+  create_table "checklist_steps", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "checklist_id"
+    t.integer "position"
+    t.text "checklist_text"
+    t.index ["checklist_id"], name: "index_checklist_steps_on_checklist_id"
   end
 
   create_table "checklists", charset: "utf8mb3", force: :cascade do |t|

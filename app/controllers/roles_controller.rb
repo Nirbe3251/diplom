@@ -8,11 +8,11 @@ class RolesController < ApplicationController
   end
 
   def update
-    @role.update(params.permit(%i[name create_test_case create_check_list create_test_plan create_bug_report]))
+    @role.update(params.permit(role_params))
   end
 
   def create
-    @role = Role.new(params.permit(%i[name create_test_case create_check_list create_test_plan create_bug_report]))
+    @role = Role.new(params.permit(role_params))
 
     return unless @role.save
 
@@ -27,5 +27,9 @@ class RolesController < ApplicationController
 
   def find_role
     @role = Role.find(params[:id])
+  end
+
+  def role_params
+    %i[name create_test_case create_check_list create_test_plan create_bug_report]
   end
 end

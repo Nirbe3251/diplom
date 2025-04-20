@@ -1,11 +1,11 @@
 class ApplicationRecord < ActiveRecord::Base
   primary_abstract_class
 
-  def self.underscore
-    gsub(/::/, '/')
-        .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
-        .gsub(/([a-z\d])([A-Z])/, '\1_\2')
-        .tr('-', '_')
-        .downcase
+  def self.humanize(locale = :ru)
+    I18n.t "#{name.underscore}.name", locale:
+  end
+
+  def humanize(_locale = :ru)
+    self.class.humanize
   end
 end

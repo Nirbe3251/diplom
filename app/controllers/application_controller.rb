@@ -1,11 +1,16 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+
   layout :determine_layout
 
   def determine_layout
-    module_name = self.class.to_s.split('::').first
-    (module_name.eql?('Devise') ? 'admin' : 'application')
+    module_name = self.class.to_s
+    if module_name.match?(/(Devise)/) || (module_name.match?(/(RegistrationsController)/) && action_name == 'new')
+      'admin'
+    else
+      'application'
+    end
   end
 
   def self.show_in_navbar?

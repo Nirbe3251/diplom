@@ -21,4 +21,8 @@ module ApplicationHelper
   def current_page
     "#{request[:controller].camelize}Controller".constantize.page_head
   end
+
+  def generate_delete_button(object)
+    render partial: 'helpers/delete_button', locals: { object: }
+  end
 end

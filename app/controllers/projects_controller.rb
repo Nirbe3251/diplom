@@ -30,14 +30,18 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(params.permit(project_params))
     @project.user_id = current_user.id
-    return unless @project.save
-
-    render plain: 'ok'
+    if @project.save
+      redirect project_path(id: @project.id)
+    else
+      render json: { error: true }
+    end
   end
 
   def add_users
     @project.users << User.where(id: params[:user_ids])
   end
+
+  def delete; end
 
   private
 

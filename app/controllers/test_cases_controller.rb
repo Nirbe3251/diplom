@@ -1,5 +1,5 @@
 class TestCasesController < ApplicationController
-  before_action :find_test_case, only: %i[show edit update]
+  before_action :find_test_case, only: %i[show edit update destroy]
 
   def self.show_in_navbar? = true
 
@@ -13,7 +13,7 @@ class TestCasesController < ApplicationController
     test_case = TestCase.new(params.permit(test_case_params))
 
     if test_case.save
-      render json: { test_case: test_case.as_json }
+      redirect_to test_case_path(id: test_case.id)
     else
       render json: { error: true }
     end
@@ -23,6 +23,16 @@ class TestCasesController < ApplicationController
 
   def update
     @test_case.update(params.permit(test_case_params))
+  end
+
+  def destroy
+    if @test_case.destroy
+      redirect_to test_cases_path
+      flash[:ok] = 'Удален'
+    else
+      flash[:error] = @test_case.errors.full_messages.join(', ')
+      redirect_back(fallback_location: test_cases_path)
+    end
   end
 
   private
