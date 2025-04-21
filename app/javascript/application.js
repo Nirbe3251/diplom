@@ -54,13 +54,18 @@ document.addEventListener('turbo:load', () => {
         } else {
             let lastCheckName = childrensChecklistBlock[childrensChecklistBlock.length - 1].children[0].name;
 
-            let splittedName = lastCheckName.split("[");
-            let elementsCount = splittedName.length;
-            let lastCheck = splittedName[elementsCount - 1].replace(/\]/, '');
-            console.log(lastCheck);
+            if (typeof (lastCheckName) === 'undefined') {
+                lastId = 0;
+            } else {
 
-            lastId = Number(lastCheck);
-            lastId = isNaN(lastId) ? 0 : lastId;
+                let splittedName = lastCheckName.split("[");
+                let elementsCount = splittedName.length;
+                let lastCheck = splittedName[elementsCount - 1].replace(/\]/, '');
+                console.log(lastCheck);
+
+                lastId = Number(lastCheck);
+                lastId = isNaN(lastId) ? 0 : lastId;
+            }
         }
 
         console.log(lastId);
