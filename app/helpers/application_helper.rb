@@ -4,6 +4,7 @@ module ApplicationHelper
       action = route.defaults[:action]
       path = route.path.spec.to_s.dup
       controller = route.defaults[:controller]
+      Rails.logger.info controller.class
       next if path == '/'
       next if /(rails|action_mailbox|active_storage|turbo|devise)/ =~ controller
       next if action != 'index'
@@ -11,10 +12,12 @@ module ApplicationHelper
 
       Rails.logger.info "Controller #{controller}"
 
+      localize_name = controller
+
       controller = controller.camelize
       path.gsub!(/\(\.:format\)/, '')
 
-      { controller:, path: }
+      { controller:, path:, localize_name: }
     end.uniq.compact
   end
 

@@ -5,7 +5,15 @@ class ApplicationRecord < ActiveRecord::Base
     I18n.t "#{name.underscore}.name", locale:
   end
 
-  def humanize(_locale = :ru)
-    self.class.humanize
+  def humanize(locale = :ru)
+    self.class.humanize(locale)
+  end
+
+  def self.downcase
+    name.underscore
+  end
+
+  def downcase
+    self.class.downcase
   end
 end

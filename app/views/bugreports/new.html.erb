@@ -1,0 +1,96 @@
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-body">
+            <%= form_for '', url: bugreports_path, method: :post do |f|%>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Название баг-репорта<i style="color: red">*</i></p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_field :title, class: "form-control form-control-user", placeholder: "Введите название чек-листа" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Проект</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:project_id, options_for_select([*current_user.projects.all.to_a.map{ |p| [p.title, p.id] }]), {selected: params[:project_id].present? ? [Project.find_by(id: params[:project_id]).title, Project.find_by(id: params[:project_id]).id] : ""}, { prompt: "Выберите проект", class: "form-control form-control-user", role: 'button'}) %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Приоритет</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:priority_id, options_for_select(Priority.all.map{|u| [u.title, u.id]}), {}, { prompt: "Выберите исполнителя", class: "form-control form-control-user", role: 'button'}) %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Исполнитель</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:performer_id, options_for_select(User.all.map{|u| [u.name, u.id]}), {}, { prompt: "Выберите исполнителя", class: "form-control form-control-user", role: 'button'}) %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Окружение</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_field :environment, class: "form-control form-control-user", placeholder: "Введите название чек-листа" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Описание</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :description, class: "form-control form-control-user", placeholder: "Введите описание" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Полное описание</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :full_description, class: "form-control form-control-user", placeholder: "Введите ожидаемый результат" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Шаги</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :steps, class: "form-control form-control-user", placeholder: "Введите ожидаемый результат" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Комментарий</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :comment, class: "form-control form-control-user", placeholder: "Введите ожидаемый результат" %>
+                </div>
+              </div>
+              <hr>
+              <%= f.submit "Сохранить", class: "btn btn-primary btn-user btn-block" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

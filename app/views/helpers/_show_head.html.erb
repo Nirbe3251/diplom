@@ -1,0 +1,10 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="align-center h3 text-gray-800"><%= obj.humanize %></h1>
+    <div class="d-sm-flex align-items-center justify-content-between">
+        <h1 class="h3 mb-0 text-gray-800"></h1>
+        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-1" data-toggle="modal" data-target="#usersModal">
+            <i class="bi bi-people-fill"></i>
+        </button>
+        <a href="<%= send("edit_#{obj.downcase}_path") %>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Редактирование</a>
+    </div>
+</div>

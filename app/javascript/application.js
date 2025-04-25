@@ -43,8 +43,6 @@ document.addEventListener('turbo:load', () => {
     });
 
     $("#add_checklist_block").on('click', function () {
-
-
         let checklistBlock = $('.checklist_block');
 
         let childrensChecklistBlock = checklistBlock.children();
@@ -57,18 +55,14 @@ document.addEventListener('turbo:load', () => {
             if (typeof (lastCheckName) === 'undefined') {
                 lastId = 0;
             } else {
-
                 let splittedName = lastCheckName.split("[");
                 let elementsCount = splittedName.length;
                 let lastCheck = splittedName[elementsCount - 1].replace(/\]/, '');
-                console.log(lastCheck);
 
                 lastId = Number(lastCheck);
                 lastId = isNaN(lastId) ? 0 : lastId;
             }
         }
-
-        console.log(lastId);
 
         let newId = lastId + 1;
         let labelBlock = `<div class="col-sm-3"><p class="mb-0">${newId} проверка<i style="color: red">*</i></p></div>`;

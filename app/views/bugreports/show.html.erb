@@ -1,0 +1,102 @@
+<section>
+  <div class="container-fluid">
+    <% render partial: "helpers/show_head", locals: { obj: @bugreport } %>
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+                <div class="col-sm-2 align-middle">
+                    <p class="mb-0">Название баг-репорта</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-8">
+                    <text class="text-center"><%= @bugreport.title %></text>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2 align-middle">
+                    <p class="mb-0">Проект</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-8">
+                    <text class="text-center"><%= @bugreport.project.title %></text>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2 align-middle">
+                    <p class="mb-0">Приоритет</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-8">
+                    <text class="text-center"><%= @bugreport.priority&.title %></text>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2 align-middle">
+                    <p class="mb-0">Исполнитель</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-8">
+                    <text class="text-center"><%= @bugreport.performer %></text>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2 align-middle">
+                    <p class="mb-0">Тестовое окружение</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-8">
+                    <text class="text-center"><%= @bugreport.environment %></text>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2 align-middle">
+                    <p class="mb-0">Описание</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-8">
+                    <text class="text-center"><%= @bugreport.description %></text>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2 align-middle">
+                    <p class="mb-0">Полное описание</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-8">
+                    <text class="text-center"><%= @bugreport.full_description %></text>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2 align-middle">
+                    <p class="mb-0">Шаги</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-8">
+                    <text class="text-center"><%= @bugreport.steps %></text>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2 align-middle">
+                    <p class="mb-0">Комментарий</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-8">
+                    <text class="text-center"><%= @bugreport.comment %></text>
+                </div>
+            </div>
+            <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
