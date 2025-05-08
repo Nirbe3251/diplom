@@ -25,20 +25,40 @@ function handleChecklistInput(element) {
     });
 };
 
+function findLastId(children) {
+    let childrensChecklistBlock = children.children();
+    let lastId = NaN;
+    if (childrensChecklistBlock.length == 1) {
+        lastId = 0;
+    } else {
+        let lastCheckName = childrensChecklistBlock[childrensChecklistBlock.length - 1].children[0].name;
+
+        if (typeof(lastCheckName) === 'undefined') {
+            lastId = 0;
+        } else {
+            let splittedName = lastCheckName.split("[");
+            let elementsCount = splittedName.length;
+            let lastCheck = splittedName[elementsCount - 1].replace(/\]/, '');
+
+            lastId = Number(lastCheck);
+            lastId = isNaN(lastId) ? 0 : lastId;
+        }
+    }
+    return lastId;
+}
+
 document.addEventListener('turbo:load', () => {
-    removeSubmitErrors();
 
     let currentLocation = window.location.pathname;
     let parsedLocation = currentLocation.split('/').slice(1).join('_');
-
     let formContext = localStorage.getItem(parsedLocation);
 
     if (formContext !== null) {
         console.log(formContext)
-        $('#save_form').replaceWith(formContext)
-    }
+        $('#save_form').replaceWith(formContext);
+    };
 
-    let checklistIdPrifix = 'checklist[checklists]'
+    let checklistIdPrifix = 'checklist[modules]'
     $(`textarea[id^='${checklistIdPrifix}']`).each(function() {
         handleChecklistInput($(this));
     });
@@ -46,28 +66,11 @@ document.addEventListener('turbo:load', () => {
     $("#add_checklist_block").on('click', function() {
         let checklistBlock = $('.checklist_block');
 
-        let childrensChecklistBlock = checklistBlock.children();
-        let lastId = NaN;
-        if (childrensChecklistBlock.length == 1) {
-            lastId = 0;
-        } else {
-            let lastCheckName = childrensChecklistBlock[childrensChecklistBlock.length - 1].children[0].name;
-
-            if (typeof(lastCheckName) === 'undefined') {
-                lastId = 0;
-            } else {
-                let splittedName = lastCheckName.split("[");
-                let elementsCount = splittedName.length;
-                let lastCheck = splittedName[elementsCount - 1].replace(/\]/, '');
-
-                lastId = Number(lastCheck);
-                lastId = isNaN(lastId) ? 0 : lastId;
-            }
-        }
+        let lastId = findLastId(checklistBlock)
 
         let newId = lastId + 1;
         let labelBlock = `<div class="col-sm-3"><p class="mb-0">${newId} проверка<i style="color: red">*</i></p></div>`;
-        let checklistName = `checklist[checklists][${newId}]`
+        let checklistName = `checklist[modules][${newId}]`
         let checklistArea = `
             <div class="form-group col-sm-9">
                 <textarea
@@ -87,7 +90,6 @@ document.addEventListener('turbo:load', () => {
 
     // save forms to local storage
     $('#save_form').on('change', function() { localStorage.setItem(parsedLocation, $('#save_form').prop('outerHTML')); });
-
     $('#save_form').on('submit', function() { localStorage.removeItem(parsedLocation); });
 });
 
@@ -95,3 +97,5 @@ $('.registration_submit').on("click", function() {
     $('.error_border').removeClass("error_border");
     $('.validation_error').remove();
 });
+
+function

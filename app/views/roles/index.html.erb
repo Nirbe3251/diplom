@@ -10,12 +10,12 @@
           <div class="card mb-4">
             <div class="card-body">
               <div class="table-responsive ">
-                <table class="table align-items-center mb-0 text-wrap">
+                <table class="table table-responsive table-borderless align-items-center mb-0 text-wrap">
                   <thead>
                     <tr>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                       <% @roles.each do |role| %>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><%= role.name %><i class="bi bi-pencil-fill ml-2" data-toggle="modal" data-target="#editRoleModal-<%= role.id %>"></i></th>
+                        <th scope="col" width="10%" class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-7"><%= role.name %><i class="bi bi-pencil-fill ml-2" data-toggle="modal" data-target="#editRoleModal-<%= role.id %>"></i></th>
                       <% end %>
                     </tr>
                   </thead>
@@ -189,90 +189,3 @@
   </div>
 </div>
 <% end %>
-
-
-<div class="table-responsive">
-  <table class="table table-responsive table-borderless">  
-    <thead>
-      <tr class="bg-light">
-        <th scope="col" width="5%"><input class="form-check-input" type="checkbox"></th>
-        <th scope="col" width="5%">#</th>
-        <th scope="col" width="20%">Date</th>
-        <th scope="col" width="10%">Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row"><input class="form-check-input" type="checkbox"></th>
-        <td>12</td>
-        <td>1 Oct, 21</td>
-        <td><i class="fa fa-cross-circle text-danger"></i><span class="ms-1">Paid</span></td>
-        <td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Althan Travis</td>
-        <td>Wirecard for figma</td>
-        <td class="text-end"><span class="fw-bolder">$0.99</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>
-      </tr>
-      
-      <tr>
-        <th scope="row"><input class="form-check-input" type="checkbox"></th>
-        <td>14</td>
-        <td>12 Oct, 21</td>
-        <td><i class="fa fa-dot-circle-o text-danger"></i><span class="ms-1">Failed</span></td>
-        <td><img src="https://i.imgur.com/nmnmfGv.png" width="25"> Tomo arvis</td>
-        <td>Altroz furry</td>
-        <td class="text-end"><span class="fw-bolder">$0.19</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>
-      </tr>
-      
-      
-      <tr>
-        <th scope="row"><input class="form-check-input" type="checkbox"></th>
-        <td>17</td>
-        <td>1 Nov, 21</td>
-        <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">Paid</span></td>
-        <td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Althan Travis</td>
-        <td>Apple Macbook air</td>
-        <td class="text-end"><span class="fw-bolder">$1.99</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>
-      </tr>
-      
-      
-      <tr>
-        <th scope="row"><input class="form-check-input" type="checkbox"></th>
-        <td>90</td>
-        <td>19 Oct, 21</td>
-        <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">Paid</span></td>
-        <td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Travis head</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
-  @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css');
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
-
-  body{
-    font-family: 'Open Sans', sans-serif;  
-  }
-  .search{
-    top:6px;
-    left:10px;
-  }
-  .form-control{
-    border:none;
-    padding-left:32px;
-  }
-  .form-control:focus{
-    border:none;
-    box-shadow:none;
-  }
-  .green{
-    color:green;
-  }
-
-  .fa-cross-circle:before {
-    content: '\f057'
-  }
-</style>

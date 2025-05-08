@@ -10,7 +10,13 @@ class Role < ApplicationRecord
 
   Role.column_names.dup.delete_if { |n| /^id$/ =~ n || /^name$/ =~ n }.each do |column_name|
     define_method "#{column_name}_show_data" do
-      self[column_name] == 1 ? 'Да' : 'Нет'
+      text = if self[column_name] == 1
+               '<i class="fa fa-check-circle-o green"></i>Да'
+             else
+               '<i class="fa fa-cross-circle text-danger"></i>Нет'
+             end.html_safe
+
+      text
     end
   end
 end
