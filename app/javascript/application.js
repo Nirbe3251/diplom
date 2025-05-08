@@ -97,5 +97,3 @@ $('.registration_submit').on("click", function() {
     $('.error_border').removeClass("error_border");
     $('.validation_error').remove();
 });
-
-function
