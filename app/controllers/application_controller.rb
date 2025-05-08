@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
 
   def determine_layout
     module_name = self.class.to_s
-    if module_name.match?(/(Devise)/) || (module_name.match?(/(RegistrationsController)/) && action_name == 'new')
+    if module_name.match?(/(Devise)/) || (module_name.match?(/(RegistrationsController)/) && %w[new
+                                                                                                create].include?(action_name))
       'admin'
     else
       'application'

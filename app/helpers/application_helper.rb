@@ -4,13 +4,10 @@ module ApplicationHelper
       action = route.defaults[:action]
       path = route.path.spec.to_s.dup
       controller = route.defaults[:controller]
-      Rails.logger.info controller.class
       next if path == '/'
       next if /(rails|action_mailbox|active_storage|turbo|devise)/ =~ controller
       next if action != 'index'
       next if /(:id)/ =~ path
-
-      Rails.logger.info "Controller #{controller}"
 
       localize_name = controller
 

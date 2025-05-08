@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_04_19_225753) do
+ActiveRecord::Schema[7.0].define(version: 2025_04_24_192853) do
   create_table "attachments", charset: "utf8mb3", force: :cascade do |t|
     t.text "description", size: :tiny
     t.string "file_name"
@@ -27,6 +27,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_04_19_225753) do
     t.bigint "severity_id"
     t.bigint "priority_id"
     t.bigint "status_id"
+    t.integer "performer_id"
+    t.string "title", limit: 50
     t.index ["priority_id"], name: "index_bug_reports_on_priority_id"
     t.index ["project_id"], name: "index_bug_reports_on_project_id"
     t.index ["severity_id"], name: "index_bug_reports_on_severity_id"
@@ -54,6 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_04_19_225753) do
 
   create_table "priorities", charset: "utf8mb3", force: :cascade do |t|
     t.string "title", limit: 10
+    t.integer "priority_level", null: false
   end
 
   create_table "project_users", charset: "utf8mb3", force: :cascade do |t|
@@ -83,10 +86,12 @@ ActiveRecord::Schema[7.0].define(version: 2025_04_19_225753) do
 
   create_table "severities", charset: "utf8mb3", force: :cascade do |t|
     t.string "title", limit: 10
+    t.integer "severity_level", default: 0, null: false
   end
 
   create_table "status_bug_reports", charset: "utf8mb3", force: :cascade do |t|
     t.string "title", limit: 10
+    t.integer "step", null: false
   end
 
   create_table "status_checklists", charset: "utf8mb3", force: :cascade do |t|

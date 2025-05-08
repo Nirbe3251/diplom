@@ -1,0 +1,43 @@
+var response = JSON.parse(<%= raw JSON.dump(errors).html_safe %>)
+
+console.log("Response: ", response)
+
+for(k in response) {
+    console.log(getLocaleName(k))
+    console.log(getLocaleError(response[k]))
+    $(`*[id$='_${k}']`).addClass('error_border')
+    $(`*[id$='_${k}']`).parent().append(`<div class='validation_error'><em>Поле ${getLocaleName(k)} ${getLocaleError(response[k])}</em></div>`)
+}
+
+function getLocaleName(key) {
+    switch (key) {
+        case 'name':
+            return "имя";
+        case 'password':
+            return "пароль";
+        case 'surname':
+            return "фамилия";
+        case 'email':
+            return "почта";
+        case 'password_confirmation':
+            return "подтверждеие пароля"
+    }
+
+};
+
+function getLocaleError(message) {
+    switch (true) {
+        case /blank/.test(message):
+            return 'не должно быть пустым';
+        case /invalid/.test(message):
+            return 'некорректно';
+        case /too short/.test(message):
+            var splitted_error = message.split(' ');
+            var minimal_size = splitted_error[splitted_error.length - 2];
+            return `должно быть минимум ${minimal_size} символов`
+        case /doesn't match Password/.test(message):
+            return "не совпадает с полем пароль";
+        default:
+            console.log(message)
+    };
+}

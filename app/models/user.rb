@@ -4,7 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  belongs_to :roles, class_name: 'Role', optional: true
+
   has_many :project_users, class_name: 'ProjectUser'
   has_many :projects, through: :project_users, dependent: :destroy
-  belongs_to :roles, class_name: 'Role', optional: true
+
+  validates :name, :surname, presence: true
 end

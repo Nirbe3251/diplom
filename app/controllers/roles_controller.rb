@@ -14,13 +14,19 @@ class RolesController < ApplicationController
   def create
     @role = Role.new(params.permit(role_params))
 
-    return unless @role.save
-
-    render json: { role: @role.as_json }
+    if @role.save
+      render 'replace_roles'
+    else
+      render js: 'alert("error !")'
+    end
   end
 
   def destroy
-    @role.destroy
+    if @role.destroy
+      render 'replace_roles'
+    else
+      render js: 'alert("error !")'
+    end
   end
 
   private

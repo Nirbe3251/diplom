@@ -4,47 +4,47 @@
   <a href="" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#usersModal"><i class="fas fa-download fa-sm text-white-50"></i>Создать роль</a>
 </div>
 <% if Role.all.present?%>
-      <section>
-          <div class="row">
-            <div class="col-12">
-              <div class="card mb-4">
-                <div class="card-body">
-                  <div class="table-responsive ">
-        <table class="table align-items-center mb-0 text-wrap">
-          <thead>
-            <tr>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
-              <% @roles.each do |role| %>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><%= role.name %><i class="bi bi-pencil-fill ml-2" data-toggle="modal" data-target="#editRoleModal-<%= role.id %>"></i></th>
-              <% end %>
-            </tr>
-          </thead>
-          <tbody>
-            <% Role.column_names.dup.delete_if {|n| /^id$/ =~ n || /^name$/ =~ n }.each do |column_name| %>
-              <tr>
-                <td class="align-middle text-center">
-                  <span class="text-secondary text-sm font-weight-bold">
-                    <%= Role::NAMES[column_name.to_sym] %>
-                  </span>
-                </td>
-                <% @roles.each do |role| %>
-                  <td class="align-middle text-center">
-                    <span class="text-secondary text-sm font-weight-bold">
-                      <%= role.send("#{column_name}_show_data") %>
-                    </span>
-                  </td>
-                <% end %>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+  <section>
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="table-responsive ">
+                <table class="table align-items-center mb-0 text-wrap">
+                  <thead>
+                    <tr>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                      <% @roles.each do |role| %>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><%= role.name %><i class="bi bi-pencil-fill ml-2" data-toggle="modal" data-target="#editRoleModal-<%= role.id %>"></i></th>
+                      <% end %>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% Role.column_names.dup.delete_if {|n| /^id$/ =~ n || /^name$/ =~ n }.each do |column_name| %>
+                      <tr>
+                        <td class="align-middle text-center">
+                          <span class="text-secondary text-sm font-weight-bold">
+                            <%= Role::NAMES[column_name.to_sym] %>
+                          </span>
+                        </td>
+                        <% @roles.each do |role| %>
+                          <td class="align-middle text-center">
+                            <span class="text-secondary text-sm font-weight-bold">
+                              <%= role.send("#{column_name}_show_data") %>
+                            </span>
+                          </td>
+                        <% end %>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </section>
 <% end %>
 
 <div class="modal fade" id="usersModal" tabindex="-1" role="dialog" aria-labelledby="usersModalLabel" aria-hidden="true">
@@ -53,7 +53,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="usersModalLabel">Создание роли</h5>
       </div>
-        <%= form_for "", url: "/roles", method: :post, remote: true do |f| %>
+        <%= form_for "", url: roles_path, method: :post, remote: true do |f| %>
         <div class="modal-body">
         <table class="table">
           <tbody>
@@ -123,9 +123,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editRoleModalLabel">Редактирование роли</h5>
-        <%= button_to 'Удалить', "/roles/#{role.id}", method: :delete, class: 'btn btn-danger', data: { confirm: "Вы действительно удалить роль?", turbo_confirm: "Are you sure?" } %>
+        <%= button_to 'Удалить', role_path(id: role.id), method: :delete, remote: true,  class: 'btn btn-danger', data: { turbo_confirm: "Вы действительно хотите удалить роль?" } %>
       </div>
-        <%= form_for "", url: "/roles/#{role.id}", method: :put, remote: true do |f| %>
+        <%= form_for "", url: role_path(id: role.id), method: :put, remote: true do |f| %>
         <div class="modal-body">
         <table class="table">
           <tbody>
@@ -189,3 +189,90 @@
   </div>
 </div>
 <% end %>
+
+
+<div class="table-responsive">
+  <table class="table table-responsive table-borderless">  
+    <thead>
+      <tr class="bg-light">
+        <th scope="col" width="5%"><input class="form-check-input" type="checkbox"></th>
+        <th scope="col" width="5%">#</th>
+        <th scope="col" width="20%">Date</th>
+        <th scope="col" width="10%">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"><input class="form-check-input" type="checkbox"></th>
+        <td>12</td>
+        <td>1 Oct, 21</td>
+        <td><i class="fa fa-cross-circle text-danger"></i><span class="ms-1">Paid</span></td>
+        <td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Althan Travis</td>
+        <td>Wirecard for figma</td>
+        <td class="text-end"><span class="fw-bolder">$0.99</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>
+      </tr>
+      
+      <tr>
+        <th scope="row"><input class="form-check-input" type="checkbox"></th>
+        <td>14</td>
+        <td>12 Oct, 21</td>
+        <td><i class="fa fa-dot-circle-o text-danger"></i><span class="ms-1">Failed</span></td>
+        <td><img src="https://i.imgur.com/nmnmfGv.png" width="25"> Tomo arvis</td>
+        <td>Altroz furry</td>
+        <td class="text-end"><span class="fw-bolder">$0.19</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>
+      </tr>
+      
+      
+      <tr>
+        <th scope="row"><input class="form-check-input" type="checkbox"></th>
+        <td>17</td>
+        <td>1 Nov, 21</td>
+        <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">Paid</span></td>
+        <td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Althan Travis</td>
+        <td>Apple Macbook air</td>
+        <td class="text-end"><span class="fw-bolder">$1.99</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>
+      </tr>
+      
+      
+      <tr>
+        <th scope="row"><input class="form-check-input" type="checkbox"></th>
+        <td>90</td>
+        <td>19 Oct, 21</td>
+        <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">Paid</span></td>
+        <td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Travis head</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+  @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css');
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+  body{
+    font-family: 'Open Sans', sans-serif;  
+  }
+  .search{
+    top:6px;
+    left:10px;
+  }
+  .form-control{
+    border:none;
+    padding-left:32px;
+  }
+  .form-control:focus{
+    border:none;
+    box-shadow:none;
+  }
+  .green{
+    color:green;
+  }
+
+  .fa-cross-circle:before {
+    content: '\f057'
+  }
+</style>

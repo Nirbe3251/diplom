@@ -18,7 +18,7 @@ Rails.start()
 channels.createRoom()
 
 function handleChecklistInput(element) {
-    $(element).on('input', function (e) {
+    $(element).on('input', function(e) {
         console.log(e.target.value);
         $(element).html(e.target.value);
         $('#save_form').trigger('change');
@@ -26,6 +26,7 @@ function handleChecklistInput(element) {
 };
 
 document.addEventListener('turbo:load', () => {
+    removeSubmitErrors();
 
     let currentLocation = window.location.pathname;
     let parsedLocation = currentLocation.split('/').slice(1).join('_');
@@ -38,11 +39,11 @@ document.addEventListener('turbo:load', () => {
     }
 
     let checklistIdPrifix = 'checklist[checklists]'
-    $(`textarea[id^='${checklistIdPrifix}']`).each(function () {
+    $(`textarea[id^='${checklistIdPrifix}']`).each(function() {
         handleChecklistInput($(this));
     });
 
-    $("#add_checklist_block").on('click', function () {
+    $("#add_checklist_block").on('click', function() {
         let checklistBlock = $('.checklist_block');
 
         let childrensChecklistBlock = checklistBlock.children();
@@ -52,7 +53,7 @@ document.addEventListener('turbo:load', () => {
         } else {
             let lastCheckName = childrensChecklistBlock[childrensChecklistBlock.length - 1].children[0].name;
 
-            if (typeof (lastCheckName) === 'undefined') {
+            if (typeof(lastCheckName) === 'undefined') {
                 lastId = 0;
             } else {
                 let splittedName = lastCheckName.split("[");
@@ -85,8 +86,12 @@ document.addEventListener('turbo:load', () => {
     });
 
     // save forms to local storage
-    $('#save_form').on('change', function () { localStorage.setItem(parsedLocation, $('#save_form').prop('outerHTML')); });
+    $('#save_form').on('change', function() { localStorage.setItem(parsedLocation, $('#save_form').prop('outerHTML')); });
 
-    $('#save_form').on('submit', function () { localStorage.removeItem(parsedLocation); });
+    $('#save_form').on('submit', function() { localStorage.removeItem(parsedLocation); });
 });
 
+$('.registration_submit').on("click", function() {
+    $('.error_border').removeClass("error_border");
+    $('.validation_error').remove();
+});

@@ -10,9 +10,36 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    build_resource(sign_up_params)
+
+    Rails.logger.info "Sign up params #{sign_up_params}"
+
+    resource.save
+    yield resource if block_given?
+    if resource.persisted?
+      if resource.active_for_authentication?
+        set_flash_message! :notice, :signed_up
+        sign_up(resource_name, resource)
+        respond_with resource, location: after_sign_up_path_for(resource)
+      else
+        set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+        expire_data_after_sign_in!
+        respond_with resource, location: after_inactive_sign_up_path_for(resource)
+      end
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      response = {}
+      respond_with(resource) do |format|
+        format.js do
+          errors = resource.errors.objects
+          errors.each { |e| response[e.attribute] = e.message }
+          render 'validates/registration', locals: { errors: response.to_json }
+        end
+      end
+    end
+  end
 
   # GET /resource/edit
   # def edit
@@ -25,10 +52,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
-    Rails.logger.info "Update resource params #{account_update_params}"
-
     resource_updated = update_resource(resource, account_update_params)
-    Rails.logger.info "Updated resource #{resource_updated.inspect}"
     yield resource if block_given?
     if resource_updated
       set_flash_message_for_update(resource, prev_unconfirmed_email)
@@ -79,10 +103,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
   #
   #
-  private
-
-  def resolve_layout
-    Rails.logger.info "Registration controller action: #{action_name}"
-    action_name == 'new' ? 'admin' : 'layouts/application'
-  end
 end
