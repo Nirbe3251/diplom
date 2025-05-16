@@ -1,5 +1,5 @@
 class ChecklistsController < ApplicationController
-  before_action :find_checklist, only: %i[show edit update]
+  before_action :find_checklist, only: %i[show edit update destroy]
 
   def self.show_in_navbar? = true
 
@@ -26,6 +26,14 @@ class ChecklistsController < ApplicationController
 
   def self.humanize
     Checklist.humanize + 'ы'
+  end
+
+  def destroy
+    if @checklist.destroy
+      redirect_to checklists_path
+    else
+      redirect_back(fallback_location: checklist_path)
+    end
   end
 
   private

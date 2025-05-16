@@ -26,6 +26,14 @@ class BugreportsController < ApplicationController
     Bugreport.humanize + 'ы'
   end
 
+  def destroy
+    if @bugreport.destroy
+      redirect_to bugreports_path
+    else
+      redirect_back(fallback_location: bugreport_path)
+    end
+  end
+
   private
 
   def find_bugreport
@@ -33,6 +41,7 @@ class BugreportsController < ApplicationController
   end
 
   def bugreport_params
-    %i[title description full_description steps environment comment project_id severity_id priority_id status_id performer_id]
+    %i[title description full_description steps environment comment project_id severity_id priority_id status_id
+       performer_id]
   end
 end
