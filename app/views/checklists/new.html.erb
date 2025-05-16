@@ -32,23 +32,24 @@
                 </div>
               </div>
               <hr>
-              <p id="1_module">
-                <div class="row checklist_block">
-                  <div class="col-12">
-                    <p class="mb-2">Тестовые модули: <i style="color: red">*</i></p>
-                  </div>
-                  <div class="col-sm-3">
-                    <p class="mb-0 ml-3">1 модуль.</p>
-                  </div>
-                  <div class="form-group col-sm-9">
-                    <%= f.text_field :test_module, class: "form-control form-control-user", placeholder: "Введите модуль" %>
-                  </div>
-                  <div class="сol-12">
-                    <p class="mb-2 ml-3">Список проверок: <i style="color: red">*</i></p>
-                  </div>
+              <div class="row checklist_block">
+                <div class="col-12">
+                  <p class="mb-2">Тестовые модули: <i style="color: red">*</i></p>
                 </div>
-              </p>
-              <div class="btn btn-primary btn-user btn-block" id="add_checklist_block">Добавить модуль</div>
+                <div class='module-container col-12 flex-shrink-0 p-2 rounded pl-4 m-1' id='module_1'>
+                  <div class="mb-2">
+                    <p class="mb-0">1 модуль.</p>
+                  </div>
+                  <div class="form-group mb-2 w-75">
+                    <%= f.text_field :test_module, class: "form-control form-control-user", placeholder: "Введите модуль", name: "checklists[modules][1][name]", id: "checklists[modules][1][name]" %>
+                  </div>
+                  <div class="mb-2 ml-3 checklist_1">
+                    <p class="mb-0">Список проверок: <i style="color: red">*</i></p>
+                  </div>
+                  <div class="btn btn-primary btn-user btn-block checklist_1" id="add_checklist_block_1">Добавить проверки</div>
+                </div>
+              </div>
+              <div class="btn btn-primary btn-user btn-block" id="add_module_block">Добавить модуль</div>
               <hr>
               <div class="row">
                 <div class="col-sm-3">

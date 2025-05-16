@@ -9,3 +9,5 @@ ru:
     name: Тест-кейс
   bug_report:
     name: Баг-репорт
+  bugreport:
+    name: Баг-репорт

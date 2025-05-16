@@ -9,7 +9,8 @@ module ApplicationHelper
       next if action != 'index'
       next if /(:id)/ =~ path
 
-      localize_name = controller
+      controller_const = "#{controller.camelize}Controller".constantize
+      localize_name = controller_const.humanize
 
       controller = controller.camelize
       path.gsub!(/\(\.:format\)/, '')

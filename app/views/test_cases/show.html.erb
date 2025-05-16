@@ -1,10 +1,10 @@
 <section>
   <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="align-center h3 text-gray-800">Тест кейс</h1>
+        <h1 class="align-center h3 text-gray-800">Тест-кейс</h1>
         <div class="d-sm-flex align-items-center justify-content-between">
             <h1 class="h3 mb-0 text-gray-800"></h1>
-            <a href="<%= edit_test_case_path %>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Edit project</a>
+            <a href="<%= edit_test_case_path %>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Редактирование тест-кейса</a>
         </div>
     </div>
     <div class="row">
@@ -27,7 +27,7 @@
                 </div>
                 <i class="topbar-divider"></i>
                 <div class="form-group col-sm-9">
-                    <textarea class="text-center"><%= @test_case.steps %></textarea>
+                    <textarea class="form-control form-control-user" readonly contenteditable=plaintext-only field-sizing=content"><%= @test_case.steps %></textarea>
                 </div>
             </div>
             <hr>

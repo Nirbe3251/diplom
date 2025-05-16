@@ -4,10 +4,7 @@
         <h1 class="align-center h3 text-gray-800">Чек-лист</h1>
         <div class="d-sm-flex align-items-center justify-content-between">
             <h1 class="h3 mb-0 text-gray-800"></h1>
-            <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-1" data-toggle="modal" data-target="#usersModal">
-                <i class="bi bi-people-fill"></i>
-            </button>
-            <a href="<%= edit_checklist_path %>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Edit project</a>
+            <a href="<%= edit_checklist_path %>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Редактировать чек-лист</a>
         </div>
     </div>
     <div class="row">
@@ -26,17 +23,6 @@
             <hr>
             <div class="row">
                 <div class="col-sm-2">
-                    <p class="mb-0">Список проверок</p>
-                </div>
-                <i class="topbar-divider"></i>
-                <div class="form-group col-sm-9">
-                    <text class="text-center"><%= @checklist.checklist %></text>
-                    <%#= f.date_field :start_at, class: "form-control form-control-user" %>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm-2">
                     <p class="mb-0">Ожидаемый результат</p>
                 </div>
                 <i class="topbar-divider"></i>
@@ -46,13 +32,41 @@
             </div>
             <hr>
             <div class="row">
-                <div class="col-sm-2">
-                    <p class="mb-0">Модуль</p>
+                <div class="col-12">
+                    <p class="mb-0">Тестовые модули:</p>
                 </div>
-                <i class="topbar-divider"></i>
-                <div class="form-group col-sm-9">
-                    <text class="text-center"><%= @checklist.test_module %></text>
-                </div>
+                <%- @checklist.checklist_module.each do |test_module| %>
+                    <div class="module-container col-12 flex-shrink-0 p-2 rounded pl-4 m-1">
+                        <div class="mb-2">
+                            <p class="mb-0"><%= test_module.position %> модуль.</p>
+                        </div>
+                        <div class="form-group mb-2 w-75">
+                            <input 
+                            name="checklists[modules][<%= test_module.position %>][name]" 
+                            class="form-control form-control-user" 
+                            id="checklists[modules][<%= test_module.position %>][name]" 
+                            value="<%= test_module.name %>"
+                            disabled
+                            >
+                        </div>
+                        <div class="mb-2">
+                            <p class="mb-0">Список проверок:</p>
+                        </div>
+                        <% test_module.module_check.each do |check| %>
+                            <div class="mb-2 ml-3">
+                                <p class="mb-0"><%= check.position %> проверка.</p>
+                            </div>
+                            <div class="form-group mb-2 w-75 ml-5">
+                                <textarea 
+                                name="checklists[modules][<%= test_module.position %>][checklist][<%= check.position %>]" 
+                                class="form-control form-control-user" 
+                                id="checklists[modules][<%= test_module.position %>][checklist][<%= check.position %>]" 
+                                type="text"
+                                disabled><%= check.module_step %></textarea>
+                            </div>
+                        <% end %>
+                    </div>
+                <%- end %>
             </div>
             <hr>
             <div class="row">

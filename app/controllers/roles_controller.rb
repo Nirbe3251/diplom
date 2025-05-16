@@ -8,7 +8,7 @@ class RolesController < ApplicationController
   end
 
   def update
-    @role.update(params.permit(role_params))
+    render 'replace_roles' if @role.update(params.permit(role_params))
   end
 
   def create
@@ -27,6 +27,12 @@ class RolesController < ApplicationController
     else
       render js: 'alert("error !")'
     end
+  end
+
+  def self.humanize
+    name = Role.humanize
+    name[-1] = 'и'
+    name
   end
 
   private

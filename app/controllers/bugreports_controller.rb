@@ -4,7 +4,8 @@ class BugreportsController < ApplicationController
   def self.show_in_navbar? = true
 
   def index
-    @bugreports = Bugreport.all
+    user_projects_id = current_user.projects.pluck(:id)
+    @bugreports = Bugreport.where(project_id: user_projects_id)
   end
 
   def new; end
@@ -21,6 +22,10 @@ class BugreportsController < ApplicationController
     end
   end
 
+  def self.humanize
+    Bugreport.humanize + 'ы'
+  end
+
   private
 
   def find_bugreport
@@ -28,6 +33,6 @@ class BugreportsController < ApplicationController
   end
 
   def bugreport_params
-    %i[title description full_description steps environment comment project_id severity_id priority_id status_id]
+    %i[title description full_description steps environment comment project_id severity_id priority_id status_id performer_id]
   end
 end

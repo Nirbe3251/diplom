@@ -35,6 +35,10 @@ class TestCasesController < ApplicationController
     end
   end
 
+  def self.humanize
+    TestCase.humanize + 'ы'
+  end
+
   private
 
   def find_test_case

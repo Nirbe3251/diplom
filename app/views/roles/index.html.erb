@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
   <h1 class="h3 mb-0 text-gray-800"></h1>
-  <a href="" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#usersModal"><i class="fas fa-download fa-sm text-white-50"></i>Создать роль</a>
+  <a href="" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#usersModal">Создать роль</a>
 </div>
 <% if Role.all.present?%>
   <section>
@@ -123,7 +123,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editRoleModalLabel">Редактирование роли</h5>
-        <%= button_to 'Удалить', role_path(id: role.id), method: :delete, remote: true,  class: 'btn btn-danger', data: { turbo_confirm: "Вы действительно хотите удалить роль?" } %>
+        <%= button_to 'Удалить', role_path(id: role.id), method: :delete, remote: true,  class: 'btn btn-danger', data: { confirm: "Вы действительно хотите удалить роль?" } %>
       </div>
         <%= form_for "", url: role_path(id: role.id), method: :put, remote: true do |f| %>
         <div class="modal-body">

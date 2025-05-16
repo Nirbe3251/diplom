@@ -1,15 +1,16 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-  <h1 class="h3 mb-0 text-gray-800"><%= current_page %></h1>
-  <h1 class="h3 mb-0 text-gray-800"></h1>
-  <%= generate_delete_button(@checklist) %>
+    <h1 class="h3 mb-0 text-gray-800">Чек-лист</h1>
+    <h1 class="h3 mb-0 text-gray-800"></h1>
+    <%= generate_delete_button(@checklist) %>
 </div>
+
 <section>
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-body">
-            <%= form_with model: [@checklist], multiplie: true do |f|%>
+            <%= form_for '', url: checklist_path, method: :put, multiplie: true do |f|%>
               <div class="row">
                 <div class="col-sm-3">
                   <p class="mb-0">Название чек-листа<i style="color: red">*</i></p>
@@ -21,13 +22,41 @@
               <hr>
               <div class="row checklist_block">
                 <div class="col-12">
-                  <p class="mb-0">Список проверок: <i style="color: red">*</i></p>
+                  <p class="mb-2">Тестовые модули: <i style="color: red">*</i></p>
                 </div>
-                <%# <div class="form-group col-sm-9"> %>
-                  <%#= f.text_area :checklist, class: "form-control form-control-user", placeholder: "Введите название чек-листа", maxlength: 5000, style: "min-height: 3rem", placeholder: 'Введите список проверок', value: @checklist.checklist %>
-                <%# </div> %>
+                <%- @checklist.checklist_module.each do |test_module| %>
+                    <div class="module-container col-12 flex-shrink-0 p-2 rounded pl-4 m-1" id="module_<%= test_module.position %>">
+                      <div class="mb-2">
+                          <p class="mb-0"><%= test_module.position %> модуль.</p>
+                      </div>
+                      <div class="form-group mb-2 w-75">
+                          <input 
+                          name="checklists[modules][<%= test_module.position %>][name]" 
+                          class="form-control form-control-user" 
+                          id="checklists[modules][<%= test_module.position %>][name]" 
+                          value="<%= test_module.name %>"
+                          >
+                      </div>
+                      <div class="mb-2">
+                          <p class="mb-0">Список проверок:</p>
+                      </div>
+                      <% test_module.module_check.each do |check| %>
+                          <div class="mb-2 ml-3">
+                              <p class="mb-0"><%= check.position %> проверка.</p>
+                          </div>
+                          <div class="form-group mb-2 w-75 ml-5">
+                            <textarea
+                            name="checklists[modules][<%= test_module.position %>][checklist][<%= check.position %>]" 
+                            class="form-control form-control-user" 
+                            id="checklists[modules][<%= test_module.position %>][checklist][<%= check.position %>]" 
+                            type="text"><%= check.module_step %></textarea>
+                          </div>
+                      <% end %>
+                      <div class="btn btn-primary btn-user btn-block checklist_<%= test_module.position %>" id="add_checklist_block_<%= test_module.position %>">Добавить проверки</div>
+                    </div>
+                <%- end %>
               </div>
-                <div class="btn btn-primary btn-user btn-block" id="add_checklist_block">Добавить модуль</div>
+              <div class="btn btn-primary btn-user btn-block" id="add_module_block">Добавить модуль</div>
               <hr>
               <div class="row">
                 <div class="col-sm-3">
@@ -35,15 +64,6 @@
                 </div>
                 <div class="form-group col-sm-9">
                   <%= f.text_field :expected_result, class: "form-control form-control-user", placeholder: "Введите ожидаемый результат", value: @checklist.expected_result %>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Модуль</p>
-                </div>
-                <div class="form-group col-sm-9">
-                  <%= f.text_field :test_module, class: "form-control form-control-user", placeholder: "Введите модуль", value: @checklist.test_module %>
                 </div>
               </div>
               <hr>

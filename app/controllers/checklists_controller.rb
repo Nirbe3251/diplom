@@ -4,16 +4,16 @@ class ChecklistsController < ApplicationController
   def self.show_in_navbar? = true
 
   def index
-    @checklists = Checklist.where(id: current_user.projects.pluck(:id))
+    @checklists = Checklist.where(project_id: current_user.projects.pluck(:id))
   end
 
   def show; end
   def edit; end
 
   def create
-    checklist = Checklist.new(params.permit(check_list_params))
+    checklist = Checklist.create_checklist(params.permit(check_list_params))
 
-    if checklist.save
+    if checklist.persisted?
       redirect_to checklist_path(id: checklist.id)
     else
       render json: { checklist_error: checklist.errors.full_messages.join(', ') }
@@ -21,7 +21,11 @@ class ChecklistsController < ApplicationController
   end
 
   def update
-    @checklist.update(params.require(:checklist).permit(check_list_params))
+    @checklist.update_checklist(params.permit(check_list_params))
+  end
+
+  def self.humanize
+    Checklist.humanize + 'ы'
   end
 
   private
@@ -31,6 +35,6 @@ class ChecklistsController < ApplicationController
   end
 
   def check_list_params
-    %i[head checklist expected_result test_module test_type project_id]
+    [:head, { checklists: {} }, :expected_result, :test_type, :project_id]
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_04_24_192853) do
+ActiveRecord::Schema[7.0].define(version: 2025_05_15_210316) do
   create_table "attachments", charset: "utf8mb3", force: :cascade do |t|
     t.text "description", size: :tiny
     t.string "file_name"
@@ -35,6 +35,13 @@ ActiveRecord::Schema[7.0].define(version: 2025_04_24_192853) do
     t.index ["status_id"], name: "index_bug_reports_on_status_id"
   end
 
+  create_table "checklist_modules", charset: "utf8mb3", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "position", default: 1, null: false
+    t.bigint "checklist_id"
+    t.index ["checklist_id"], name: "index_checklist_modules_on_checklist_id"
+  end
+
   create_table "checklist_steps", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "checklist_id"
     t.integer "position"
@@ -44,14 +51,19 @@ ActiveRecord::Schema[7.0].define(version: 2025_04_24_192853) do
 
   create_table "checklists", charset: "utf8mb3", force: :cascade do |t|
     t.text "head", size: :tiny, null: false
-    t.text "checklist", null: false
     t.string "expected_result", limit: 100, null: false
-    t.string "test_module", limit: 25
     t.string "test_type", limit: 200
     t.bigint "status_id", default: 0, null: false
     t.bigint "project_id"
     t.index ["project_id"], name: "index_checklists_on_project_id"
     t.index ["status_id"], name: "index_checklists_on_status_id"
+  end
+
+  create_table "module_checks", charset: "utf8mb3", force: :cascade do |t|
+    t.integer "position", default: 1, null: false
+    t.text "module_step", null: false
+    t.bigint "checklist_module_id"
+    t.index ["checklist_module_id"], name: "index_module_checks_on_checklist_module_id"
   end
 
   create_table "priorities", charset: "utf8mb3", force: :cascade do |t|

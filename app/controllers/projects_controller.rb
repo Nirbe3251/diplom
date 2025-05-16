@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = Project.all
+    @projects = current_user.projects
   end
 
   def edit; end
@@ -47,6 +47,10 @@ class ProjectsController < ApplicationController
     else
       redirect_back(fallback_location: project_path)
     end
+  end
+
+  def self.humanize
+    Project.humanize + 'ы'
   end
 
   private
