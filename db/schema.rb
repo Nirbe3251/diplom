@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_05_15_210316) do
+ActiveRecord::Schema[7.0].define(version: 2025_05_17_092555) do
   create_table "attachments", charset: "utf8mb3", force: :cascade do |t|
     t.text "description", size: :tiny
     t.string "file_name"
@@ -67,7 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_15_210316) do
   end
 
   create_table "priorities", charset: "utf8mb3", force: :cascade do |t|
-    t.string "title", limit: 10
+    t.string "title"
     t.integer "priority_level", null: false
   end
 
@@ -97,7 +97,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_15_210316) do
   end
 
   create_table "severities", charset: "utf8mb3", force: :cascade do |t|
-    t.string "title", limit: 10
+    t.string "title"
     t.integer "severity_level", default: 0, null: false
   end
 
