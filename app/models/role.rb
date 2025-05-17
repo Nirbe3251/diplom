@@ -1,6 +1,8 @@
 class Role < ApplicationRecord
   has_many :users, foreign_key: :roles_id
 
+  validates :name, presence: true
+
   NAMES = {
     create_test_case: 'Создание тест-кейсов',
     create_check_list: 'Создание чек-листов',

@@ -12,12 +12,15 @@ class RolesController < ApplicationController
   end
 
   def create
-    @role = Role.new(params.permit(role_params))
+    role = Role.new(params.permit(role_params))
 
-    if @role.save
+    if role.save
       render 'replace_roles'
     else
-      render js: 'alert("error !")'
+      response = {}
+      errors = role.errors.objects
+      errors.each { |e| response[e.attribute] = e.message }
+      render 'validates/forms', locals: { errors: response.to_json }
     end
   end
 
