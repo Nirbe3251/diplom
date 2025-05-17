@@ -8,6 +8,6 @@ ru:
   test_case:
     name: Тест-кейс
   bug_report:
-    name: Баг-репорт
+    name: Отчёты об ошибках
   bugreport:
-    name: Баг-репорт
+    name: отчёт 

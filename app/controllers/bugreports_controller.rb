@@ -29,9 +29,9 @@ class BugreportsController < ApplicationController
       render json: { error: @bugreport.errors.full_messages.join(', ') }
     end
   end
-  
+
   def self.humanize
-    Bugreport.humanize + 'ы'
+    Bugreport.humanize
   end
 
   def destroy
