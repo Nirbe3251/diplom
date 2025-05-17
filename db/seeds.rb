@@ -9,6 +9,6 @@
   Priority.create(title: name, priority_level: index)
 end
 
-%w[Низкая Средняя Высокая Критическая].each_with_index do |name, index|
+%w[Блокирующая Критическая Значительная Незначительная Тривиальная].each_with_index do |name, index|
   Severity.create(title: name, severity_level: index)
 end
