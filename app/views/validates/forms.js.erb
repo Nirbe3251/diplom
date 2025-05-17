@@ -1,4 +1,4 @@
-var response = JSON.parse("{\"title\":\"can't be blank\"}");
+var response = JSON.parse(<%= raw JSON.dump(errors).html_safe %>);
 
 for(k in response) {
     $(`*[id$='${k}']`).addClass('error_border');
@@ -8,7 +8,7 @@ for(k in response) {
 function getLocaleName(key) {
     switch (key) {
         case 'name':
-            return "имя";
+            return "название";
         case 'title':
             return "название";
         case 'password':

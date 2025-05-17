@@ -20,6 +20,7 @@ class RolesController < ApplicationController
       response = {}
       errors = role.errors.objects
       errors.each { |e| response[e.attribute] = e.message }
+      Rails.logger.info response
       render 'validates/forms', locals: { errors: response.to_json }
     end
   end
