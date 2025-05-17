@@ -16,7 +16,7 @@
                   <p class="mb-0">Название отчёта<i style="color: red">*</i></p>
                 </div>
                 <div class="form-group col-sm-9">
-                  <%= f.text_field :title, class: "form-control form-control-user", placeholder: "Введите название чек-листа", value: @bugreport.title %>
+                  <%= f.text_field :title, class: "form-control form-control-user", placeholder: "Введите название отчёта", value: @bugreport.title %>
                 </div>
               </div>
               <hr>
@@ -61,7 +61,7 @@
                   <p class="mb-0">Окружение</p>
                 </div>
                 <div class="form-group col-sm-9">
-                  <%= f.text_field :environment, class: "form-control form-control-user", placeholder: "Введите название чек-листа", value: @bugreport.environment %>
+                  <%= f.text_field :environment, class: "form-control form-control-user", placeholder: "Окружение", value: @bugreport.environment %>
                 </div>
               </div>
               <hr>
@@ -79,7 +79,7 @@
                   <p class="mb-0">Полное описание</p>
                 </div>
                 <div class="form-group col-sm-9">
-                  <%= f.text_area :full_description, class: "form-control form-control-user", placeholder: "Введите ожидаемый результат", value: @bugreport.full_description %>
+                  <%= f.text_area :full_description, class: "form-control form-control-user", placeholder: "Введите полное описание", value: @bugreport.full_description %>
                 </div>
               </div>
               <hr>
@@ -88,7 +88,7 @@
                   <p class="mb-0">Шаги</p>
                 </div>
                 <div class="form-group col-sm-9">
-                  <%= f.text_area :steps, class: "form-control form-control-user", placeholder: "Введите ожидаемый результат", value: @bugreport.steps %>
+                  <%= f.text_area :steps, class: "form-control form-control-user", placeholder: "Введите шаги", value: @bugreport.steps %>
                 </div>
               </div>
               <hr>
@@ -97,7 +97,7 @@
                   <p class="mb-0">Комментарий</p>
                 </div>
                 <div class="form-group col-sm-9">
-                  <%= f.text_area :comment, class: "form-control form-control-user", placeholder: "Введите ожидаемый результат", value: @bugreport.comment %>
+                  <%= f.text_area :comment, class: "form-control form-control-user", placeholder: "Введите комментарий", value: @bugreport.comment %>
                 </div>
               </div>
               <hr>
