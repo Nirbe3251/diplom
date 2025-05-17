@@ -31,7 +31,7 @@ class BugreportsController < ApplicationController
   end
 
   def self.humanize
-    Bugreport.humanize
+    'Отчеты об ошибках'
   end
 
   def destroy
