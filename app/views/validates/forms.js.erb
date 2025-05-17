@@ -1,0 +1,40 @@
+var response = JSON.parse("{\"title\":\"can't be blank\"}");
+
+for(k in response) {
+    $(`*[id$='${k}']`).addClass('error_border');
+    $(`*[id$='${k}']`).parent().append(`<div class='validation_error'><em>Поле ${getLocaleName(k)} ${getLocaleError(response[k])}</em></div>`);
+}
+
+function getLocaleName(key) {
+    switch (key) {
+        case 'name':
+            return "название";
+        case 'title':
+            return "имя";
+        case 'password':
+            return "пароль";
+        case 'surname':
+            return "фамилия";
+        case 'email':
+            return "почта";
+        case 'password_confirmation':
+            return "подтверждеие пароля";
+    }
+};
+
+function getLocaleError(message) {
+    switch (true) {
+        case /blank/.test(message):
+            return 'не должно быть пустым';
+        case /invalid/.test(message):
+            return 'некорректно';
+        case /too short/.test(message):
+            var splitted_error = message.split(' ');
+            var minimal_size = splitted_error[splitted_error.length - 2];
+            return `должно быть минимум ${minimal_size} символов`;
+        case /doesn't match Password/.test(message):
+            return "не совпадает с полем пароль";
+        default:
+            console.log(message);
+    };
+}

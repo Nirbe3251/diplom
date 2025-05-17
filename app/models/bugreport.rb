@@ -6,6 +6,8 @@ class Bugreport < ApplicationRecord
   belongs_to :priority, optional: true
   belongs_to :status, optional: true
 
+  validates :title, presence: true
+
   def performer
     User.find_by(id: performer_id)&.name
   end

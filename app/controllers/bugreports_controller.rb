@@ -18,7 +18,10 @@ class BugreportsController < ApplicationController
     if bugreport.save
       redirect_to bugreport_path(id: bugreport.id)
     else
-      render js: "alert(#{bugreport.errors.full_messages.join(', ')})"
+      response = {}
+      errors = bugreport.errors.objects
+      errors.each { |e| response[e.attribute] = e.message }
+      render 'validates/forms', locals: { errors: response.to_json }
     end
   end
 
@@ -26,7 +29,10 @@ class BugreportsController < ApplicationController
     if @bugreport.update(params.permit(bugreport_params))
       redirect_to bugreport_path(id: @bugreport.id)
     else
-      render json: { error: @bugreport.errors.full_messages.join(', ') }
+      response = {}
+      errors = resource.errors.objects
+      errors.each { |e| response[e.attribute] = e.message }
+      render 'validates/forms', locals: { errors: response.to_json }
     end
   end
 
