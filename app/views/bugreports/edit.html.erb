@@ -1,5 +1,5 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Баг-репорт</h1>
+    <h1 class="h3 mb-0 text-gray-800">Отчёт об ошибке</h1>
     <h1 class="h3 mb-0 text-gray-800"></h1>
     <%= generate_delete_button(@bugreport) %>
 </div>
@@ -10,7 +10,7 @@
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-body">
-            <%= form_for '', url: bugreports_path, method: :put do |f|%>
+            <%= form_for '', url: bugreport_path, method: :put do |f|%>
               <div class="row">
                 <div class="col-sm-3">
                   <p class="mb-0">Название баг-репорта<i style="color: red">*</i></p>

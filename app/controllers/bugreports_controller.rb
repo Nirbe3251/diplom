@@ -22,6 +22,14 @@ class BugreportsController < ApplicationController
     end
   end
 
+  def update
+    if @bugreport.update(params.permit(bugreport_params))
+      redirect_to bugreport_path(id: @bugreport.id)
+    else
+      render json: { error: @bugreport.errors.full_messages.join(', ') }
+    end
+  end
+  
   def self.humanize
     Bugreport.humanize + 'ы'
   end
