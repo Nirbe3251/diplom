@@ -34,6 +34,15 @@
               <hr>
               <div class="row">
                 <div class="col-sm-3">
+                  <p class="mb-0">Серьезность</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:severity_id, options_for_select(Severity.all.map{|u| [u.title, u.id]}), {}, { prompt: "Выберите серьезность", class: "form-control form-control-user", role: 'button'}) %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
                   <p class="mb-0">Исполнитель</p>
                 </div>
                 <div class="form-group col-sm-9">
