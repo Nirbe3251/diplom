@@ -1,3 +1,3 @@
 class Severity < ApplicationRecord
-  enum severity_level: { minor: 0, medium: 1, major: 2, critical: 3 }
+  enum severity_level: { blocker: 0, critical: 1, major: 2, minor: 3, trivial: 4 }
 end

@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-%w[Нормальный Средний Высокий Высший].each_with_index do |name, index|
+%W[Низкий Средний Высокий #{'Как можно скорее'}].each_with_index do |name, index|
   Priority.create(title: name, priority_level: index)
 end
 
