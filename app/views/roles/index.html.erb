@@ -263,7 +263,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:edit_check_list, options_for_select([["Да", 1], ["Нет", 0]], role.edit_check_list),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:edit_check_list, options_for_select([["Да", 1], ["Нет", 0]], role.edit_checklist),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -273,7 +273,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:remove_check_list, options_for_select([["Да", 1], ["Нет", 0]], role.remove_check_list),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:remove_check_list, options_for_select([["Да", 1], ["Нет", 0]], role.remove_checklist),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
