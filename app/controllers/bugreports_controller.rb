@@ -16,7 +16,7 @@ class BugreportsController < ApplicationController
     bugreport = Bugreport.new(params.permit(bugreport_params))
 
     if bugreport.save
-      redirect_to bugreport_path(id: bugreport.id)
+      render js: "window.location.replace('#{bugreport_path(id: bugreport.id)}')"
     else
       response = {}
       errors = bugreport.errors.objects
