@@ -16,7 +16,7 @@ module ApplicationHelper
       path.gsub!(/\(\.:format\)/, '')
 
       { controller:, path:, localize_name: }
-    end.uniq.compact
+    end.uniq.compact.sort_by { |el| el[:localize_name].first }
   end
 
   def current_page
