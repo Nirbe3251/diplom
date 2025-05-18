@@ -24,6 +24,6 @@ class TestCase < ApplicationRecord
   def generate_uniq_id
     uid = TestCase.all.pluck(:id)
     uid = uid.sort_by { |el| el&.sub!('tc-', '').to_i }
-    self.id = uid
+    self.id = "tc-#{uid.last.to_i + 1}"
   end
 end
