@@ -5,7 +5,21 @@
  <a href="<%= new_test_case_path %>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Создать тест-кейс</a>
 <%# </div> %>
 </div>
-
+<%= form_tag test_cases_path, method: 'get', class: 'pb-4' do %>
+    <div class="input-group input-group-outline row align-items-center">
+        <div class="col-auto pl-0">
+            <div class="col-auto">
+                <%= label_tag 'name', "ID, Название" %>
+                <%= text_field_tag 'name', params[:name] ? params[:name] : '', class: 'form-control' %>
+            </div>
+        </div>
+        <div class="col-auto d-flex align-items-end pt-4 mt-2">
+            <%= button_tag type: "submit", class: 'btn btn-outline-primary' do %>
+                <i class="bi bi-search"></i> Поиск
+            <% end %>
+        </div>
+    </div>
+<% end %>
 <div class="row">
     <!-- Earnings (Monthly) Card Example -->
     <% @test_cases.each do |test_case|%>
@@ -15,7 +29,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="h5 font-weight-bold text-primary text-uppercase mb-1">
-                                <a href="<%= test_case_path(id: test_case.id) %>"><%= test_case.title %>
+                                <a href="<%= test_case_path(id: test_case.id) %>">#<%= test_case.id %> <%= test_case.title %>
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                         </div>

@@ -4,7 +4,7 @@ class TestCasesController < ApplicationController
   def self.show_in_navbar? = true
 
   def index
-    @test_cases = TestCase.where(project_id: current_user.projects.pluck(:id))
+    @test_cases = TestCase.where(project_id: current_user.projects.pluck(:id)).search(params)
   end
 
   def new; end
