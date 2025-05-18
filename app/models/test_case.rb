@@ -15,11 +15,15 @@ class TestCase < ApplicationRecord
     res
   end
 
+  def self.find_bigger_id
+    all = TestCase.all
+  end
+
   private
 
   def generate_uniq_id
-    last_id = TestCase.order(id: :asc)&.first&.id
-    last_id = last_id&.sub('tc-', '')
-    self.id = "tc-#{last_id.to_i + 1}"
+    uid = TestCase.all.pluck(:id)
+    uid = uid.sort_by { |el| el&.sub!('tc-', '').to_i }
+    self.id = uid
   end
 end
