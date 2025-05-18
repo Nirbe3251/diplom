@@ -46,6 +46,7 @@ class RolesController < ApplicationController
   end
 
   def role_params
-    %i[name create_test_case create_check_list create_test_plan create_bug_report]
+    %i[name create_test_case create_check_list create_test_plan create_bug_report edit_test_case edit_checklist
+       edit_test_plan edit_bug_report remove_test_case remove_checklist remove_test_plan remove_bug_report]
   end
 end
