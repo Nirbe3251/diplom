@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_05_17_092555) do
-  create_table "attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2025_05_18_103025) do
+  create_table "attachments", charset: "utf8mb3", force: :cascade do |t|
     t.text "description", size: :tiny
     t.string "file_name"
     t.binary "file"
   end
 
-  create_table "bug_reports", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "bug_reports", charset: "utf8mb3", force: :cascade do |t|
     t.text "description", size: :tiny, null: false
     t.text "full_description"
     t.text "steps"
@@ -35,21 +35,21 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_17_092555) do
     t.index ["status_id"], name: "index_bug_reports_on_status_id"
   end
 
-  create_table "checklist_modules", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "checklist_modules", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.integer "position", default: 1, null: false
     t.bigint "checklist_id"
     t.index ["checklist_id"], name: "index_checklist_modules_on_checklist_id"
   end
 
-  create_table "checklist_steps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "checklist_steps", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "checklist_id"
     t.integer "position"
     t.text "checklist_text"
     t.index ["checklist_id"], name: "index_checklist_steps_on_checklist_id"
   end
 
-  create_table "checklists", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "checklists", charset: "utf8mb3", force: :cascade do |t|
     t.text "head", size: :tiny, null: false
     t.string "expected_result", limit: 100, null: false
     t.string "test_type", limit: 200
@@ -59,26 +59,26 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_17_092555) do
     t.index ["status_id"], name: "index_checklists_on_status_id"
   end
 
-  create_table "module_checks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "module_checks", charset: "utf8mb3", force: :cascade do |t|
     t.integer "position", default: 1, null: false
     t.text "module_step", null: false
     t.bigint "checklist_module_id"
     t.index ["checklist_module_id"], name: "index_module_checks_on_checklist_module_id"
   end
 
-  create_table "priorities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "priorities", charset: "utf8mb3", force: :cascade do |t|
     t.string "title"
     t.integer "priority_level", null: false
   end
 
-  create_table "project_users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "project_users", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.bigint "user_id", null: false
     t.index ["project_id"], name: "index_project_users_on_project_id"
     t.index ["user_id"], name: "index_project_users_on_user_id"
   end
 
-  create_table "projects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "projects", charset: "utf8mb3", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
     t.bigint "user_id", null: false
@@ -88,29 +88,37 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_17_092555) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
-  create_table "roles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "roles", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", limit: 45, null: false
     t.integer "create_test_case", default: 0
     t.integer "create_check_list", default: 0
     t.integer "create_test_plan", default: 0
     t.integer "create_bug_report", default: 0
+    t.boolean "edit_test_case"
+    t.boolean "edit_checklist"
+    t.boolean "edit_test_plan"
+    t.boolean "edit_bug_report"
+    t.boolean "remove_test_case"
+    t.boolean "remove_checklist"
+    t.boolean "remove_test_plan"
+    t.boolean "remove_bug_report"
   end
 
-  create_table "severities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "severities", charset: "utf8mb3", force: :cascade do |t|
     t.string "title"
     t.integer "severity_level", default: 0, null: false
   end
 
-  create_table "status_bug_reports", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "status_bug_reports", charset: "utf8mb3", force: :cascade do |t|
     t.string "title", limit: 10
     t.integer "step", null: false
   end
 
-  create_table "status_checklists", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "status_checklists", charset: "utf8mb3", force: :cascade do |t|
     t.boolean "completed", default: false
   end
 
-  create_table "test_cases", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "test_cases", id: false, charset: "utf8mb3", force: :cascade do |t|
     t.string "id", null: false
     t.string "title", limit: 45, null: false
     t.text "steps", null: false
@@ -128,7 +136,25 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_17_092555) do
     t.index ["user_id"], name: "index_test_cases_on_user_id"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "test_plans", charset: "utf8mb3", force: :cascade do |t|
+    t.text "title", null: false
+    t.text "purpose", null: false
+    t.text "features_to_be_tested"
+    t.text "features_not_to_be_tested"
+    t.text "test_strategy"
+    t.text "test_approach"
+    t.text "criteria"
+    t.text "resources"
+    t.datetime "test_schedule"
+    t.text "roles_and_responsibility"
+    t.text "risk_evaluation"
+    t.text "documentation"
+    t.text "metrics"
+    t.bigint "project_id"
+    t.index ["project_id"], name: "index_test_plans_on_project_id"
+  end
+
+  create_table "users", charset: "utf8mb3", force: :cascade do |t|
     t.string "email", limit: 45, default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

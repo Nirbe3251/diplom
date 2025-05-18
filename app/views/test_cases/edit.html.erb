@@ -1,7 +1,9 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
   <h1 class="h3 mb-0 text-gray-800">Тест-кейс <%= @test_case.id %></h1>
   <h1 class="h3 mb-0 text-gray-800"></h1>
-  <%= generate_delete_button(@test_case) %>
+  <% if current_user.roles.remove_test_case? %>
+    <%= generate_delete_button(@test_case) %>
+  <% end %>
 </div>
 <section>
   <div class="container-fluid">

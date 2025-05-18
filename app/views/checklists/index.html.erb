@@ -1,7 +1,9 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Чек-листы</h1>
     <h1 class="h3 mb-0 text-gray-800"></h1>
-    <a href="<%= new_checklist_path %>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Создание чек-листа</a>
+    <% if current_user.roles.create_checklist? %>
+        <a href="<%= new_checklist_path %>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Создание чек-листа</a>
+    <% end %>
 </div>
 
 <div class="row">

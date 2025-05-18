@@ -5,9 +5,20 @@ class Role < ApplicationRecord
 
   NAMES = {
     create_test_case: 'Создание тест-кейсов',
+    edit_test_case: 'Редактирование тест-кейсов',
+    remove_test_case: 'Удаление тест-кейсов',
+
     create_check_list: 'Создание чек-листов',
-    create_test_plan: 'Создание тест-планов',
-    create_bug_report: 'Создание баг-репортов'
+    edit_checklist: 'Редактирование чек-листов',
+    remove_checklist: 'Удаление чек-листов',
+
+    create_test_plan: 'Создание планов тестирования',
+    edit_test_plan: 'Редактирование планов тестирования',
+    remove_test_plan: 'Удаление планов тестирования',
+
+    create_bug_report: 'Создание отчетов об ошибках',
+    edit_bug_report: 'Редактирование отчетов об ошибках',
+    remove_bug_report: 'Удаление отчетов об ошибках'
   }.freeze
 
   Role.column_names.dup.delete_if { |n| /^id$/ =~ n || /^name$/ =~ n }.each do |column_name|
