@@ -205,7 +205,7 @@
         <h5 class="modal-title" id="editRoleModalLabel">Редактирование роли</h5>
         <%= button_to 'Удалить', role_path(id: role.id), method: :delete, remote: true,  class: 'btn btn-danger', data: { confirm: "Вы действительно хотите удалить роль?" } %>
       </div>
-        <%= form_for "", url: roles_path, method: :put, remote: true do |f| %>
+        <%= form_for "", url: roles_path(id: role.id), method: :put, remote: true do |f| %>
         <div class="modal-body">
         <table class="table">
           <tbody>
