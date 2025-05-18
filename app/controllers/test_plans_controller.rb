@@ -45,7 +45,7 @@ class TestPlansController < ApplicationController
 
   def test_plan_params
     %i[title purpose features_to_be_tested features_not_to_be_tested test_strategy test_approach criteria resources
-       test_schedule roles_and_responsibility risk_evaluation documentation metrics]
+       test_schedule roles_and_responsibility risk_evaluation documentation metrics project_id]
   end
 
   def find_test_plan
