@@ -10,4 +10,6 @@ ru:
   bug_report:
     name: Отчёты об ошибках
   bugreport:
-    name: отчёт 
+    name: отчёт
+  test_plan:
+    name: План тестирования

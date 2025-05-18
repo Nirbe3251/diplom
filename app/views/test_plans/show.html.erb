@@ -1,0 +1,159 @@
+<section>
+  <div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="align-center h3 text-gray-800">План тестирования <%= @test_plan.id %></h1>
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <h1 class="h3 mb-0 text-gray-800"></h1>
+            <a href="<%= edit_test_plan_path %>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Редактирование план тестирования</a>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+                <div class="col-sm-2 align-middle">
+                    <p class="mb-0">Название плана тестирования</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-8">
+                    <text class="text-center"><%= @test_plan.title %></text>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="mb-0">Проект</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-9">
+                    <text class="text-center"><%= @test_case.project.title %></text>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="mb-0">Цель</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-9">
+                    <textarea class="form-control form-control-user" readonly contenteditable=plaintext-only field-sizing=content"><%= @test_plan.purpose %></textarea>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="mb-0">Области, подвергаемые тестированию</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-9">
+                    <textarea class="form-control form-control-user" readonly contenteditable=plaintext-only field-sizing=content"><%= @test_plan.features_to_be_tested %></textarea>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="mb-0">Области, не подвергаемые тестированию</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-9">
+                    <textarea class="form-control form-control-user" readonly contenteditable=plaintext-only field-sizing=content"><%= @test_plan.features_not_to_be_tested %></textarea>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="mb-0">Стратегия тестирования</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-9">
+                    <textarea class="form-control form-control-user" readonly contenteditable=plaintext-only field-sizing=content"><%= @test_plan.test_strategy %></textarea>
+                </div>
+            </div>
+            <hr> 
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="mb-0">Подходы тестирования</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-9">
+                    <textarea class="form-control form-control-user" readonly contenteditable=plaintext-only field-sizing=content"><%= @test_plan.test_approach %></textarea>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="mb-0">Критерии</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-9">
+                    <textarea class="form-control form-control-user" readonly contenteditable=plaintext-only field-sizing=content"><%= @test_plan.criteria %></textarea>
+                </div>
+            </div>
+            <hr> 
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="mb-0">Ресурсы</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-9">
+                    <textarea class="form-control form-control-user" readonly contenteditable=plaintext-only field-sizing=content"><%= @test_plan.resources %></textarea>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="mb-0">Расписание</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-9">
+                    <text class="text-center"><%= @test_plan.test_schedule %></text>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="mb-0">Роли и ответственность</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-9">
+                    <textarea class="form-control form-control-user" readonly contenteditable=plaintext-only field-sizing=content"><%= @test_plan.roles_and_responsibility %></textarea>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="mb-0">Оценка рисков</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-9">
+                    <textarea class="form-control form-control-user" readonly contenteditable=plaintext-only field-sizing=content"><%= @test_plan.risk_evaluation %></textarea>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="mb-0">Документация</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-9">
+                    <textarea class="form-control form-control-user" readonly contenteditable=plaintext-only field-sizing=content"><%= @test_plan.documentation %></textarea>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="mb-0">Метрики</p>
+                </div>
+                <i class="topbar-divider"></i>
+                <div class="form-group col-sm-9">
+                    <textarea class="form-control form-control-user" readonly contenteditable=plaintext-only field-sizing=content"><%= @test_plan.metrics %></textarea>
+                </div>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

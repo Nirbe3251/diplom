@@ -1,0 +1,147 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">План тестирования</h1>
+    <h1 class="h3 mb-0 text-gray-800"></h1>
+    <%= generate_delete_button(@test_plan) %>
+</div>
+
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-body">
+            <%= form_for '', url: test_plan_path, method: :put do |f|%>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Название плана тестирования<i style="color: red">*</i></p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_field :title, class: "form-control form-control-user", placeholder: "Введите название плана тестирования", value: @test_plan.title %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Проект</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:project_id, options_for_select([*current_user.projects.all.to_a.map{ |p| [p.title, p.id] }, @test_plan.project.id]), {}, { prompt: "Выберите проект", class: "form-control form-control-user", role: 'button'}) %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Цель</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :purpose, class: "form-control form-control-user", placeholder: "Введите цель", value: @test_plan.purpose %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Области, подвергаемые тестированию</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :features_to_be_tested, class: "form-control form-control-user", placeholder: "Введите области, подвергаемые тестированию", value: @test_plan.features_to_be_tested %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Области, не подвергаемые тестированию</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :features_not_to_be_tested, class: "form-control form-control-user", placeholder: "Введите области, не подвергаемые тестированию", value: @test_plan.features_not_to_be_tested %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Стратегия тестирования</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :test_strategy, class: "form-control form-control-user", placeholder: "Введите стратегию тестирования", value: @test_plan.test_strategy %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Подходы тестирования</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :test_approach, class: "form-control form-control-user", placeholder: "Введите тетовые подходы", value: @test_plan.test_approach %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Критерии</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :criteria, class: "form-control form-control-user", placeholder: "Введите критерии", value: @test_plan.criteria %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Ресурсы</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :resources, class: "form-control form-control-user", placeholder: "Введите ресурсы", value: @test_plan.resources %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Расписание</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.datetime :test_schedule, class: "form-control form-control-user", value: @test_plan.test_schedule %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Роли и ответственность</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :roles_and_responsibility, class: "form-control form-control-user", placeholder: "Введите роли и ответственность", value: @test_plan.roles_and_responsibility %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Оценка рисков</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :risk_evaluation, class: "form-control form-control-user", placeholder: "Введите оценку рисков", value: @test_plan.risk_evaluation %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Документация</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :documentation, class: "form-control form-control-user", placeholder: "Введите документацию", value: @test_plan.documentation %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Метрики</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :metrics, class: "form-control form-control-user", placeholder: "Введите метрики", value: @test_plan.metrics %>
+                </div>
+              </div>
+              <hr>
+              <%= f.submit "Сохранить", class: "btn btn-primary btn-user btn-block" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

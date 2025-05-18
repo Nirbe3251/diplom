@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :test_cases
   resources :roles
   resources :bugreports
+  resources :test_plans
 
   get 'user/:id', to: 'users#index', as: 'user'
 end

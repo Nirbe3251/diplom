@@ -1,0 +1,141 @@
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-body">
+            <%= form_for '', url: test_plans_path, method: :post do |f|%>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Название плана тестирования<i style="color: red">*</i></p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_field :title, class: "form-control form-control-user", placeholder: "Введите название плана тестирования" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Проект</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:project_id, options_for_select([*current_user.projects.all.to_a.map{ |p| [p.title, p.id] }]), {selected: params[:project_id].present? ? [Project.find_by(id: params[:project_id]).title, Project.find_by(id: params[:project_id]).id] : ""}, { prompt: "Выберите проект", class: "form-control form-control-user", role: 'button'}) %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Цель</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :purpose, class: "form-control form-control-user", placeholder: "Введите цель" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Области, подвергаемые тестированию</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :features_to_be_tested, class: "form-control form-control-user", placeholder: "Введите области, подвергаемые тестированию" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Области, не подвергаемые тестированию</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :features_not_to_be_tested, class: "form-control form-control-user", placeholder: "Введите области, не подвергаемые тестированию" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Тестовая стратегия</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :test_strategy, class: "form-control form-control-user", placeholder: "Введите тетовые стратегии" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Тестовые подходы</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :test_approach, class: "form-control form-control-user", placeholder: "Введите тетовые подходы" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Критерии</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :criteria, class: "form-control form-control-user", placeholder: "Введите критерии" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Ресурсы</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :resources, class: "form-control form-control-user", placeholder: "Введите ресурсы" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Расписание</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.datetime :test_schedule, class: "form-control form-control-user" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Роли и ответственность</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :roles_and_responsibility, class: "form-control form-control-user", placeholder: "Введите роли и ответственность" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Оценка рисков</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :risk_evaluation, class: "form-control form-control-user", placeholder: "Введите оценку рисков" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Документация</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :documentation, class: "form-control form-control-user", placeholder: "Введите документацию" %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Метрики</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_area :metrics, class: "form-control form-control-user", placeholder: "Введите метрики" %>
+                </div>
+              </div>
+              <hr>
+              <%= f.submit "Сохранить", class: "btn btn-primary btn-user btn-block" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
