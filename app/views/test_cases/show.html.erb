@@ -4,7 +4,7 @@
         <h1 class="align-center h3 text-gray-800">Тест-кейс <%= @test_case.id %></h1>
         <div class="d-sm-flex align-items-center justify-content-between">
             <h1 class="h3 mb-0 text-gray-800"></h1>
-            <% if current_user.roles.edit_test_case? %>
+            <% if current_user&.roles&.edit_test_case? %>
                 <a href="<%= edit_test_case_path %>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Редактирование тест-кейса</a>
             <% end %>
         </div>

@@ -1,0 +1,46 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Тест-кейсы</h1>
+<%# <div class="d-sm-flex align-items-center justify-content-between mb-4"> %>
+    <h1 class="h3 mb-0 text-gray-800"></h1>
+    <% if current_user&.roles&.create_test_case? %>
+        <a href="<%= new_test_case_path %>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Создать тест-кейс</a>
+    <% end %>
+<%# </div> %>
+</div>
+<%= form_tag test_cases_path, method: 'get', class: 'pb-4' do %>
+    <div class="input-group input-group-outline row align-items-center">
+        <div class="col-auto pl-0">
+            <div class="col-auto">
+                <%= label_tag 'name', "ID, Название" %>
+                <%= text_field_tag 'name', params[:name] ? params[:name] : '', class: 'form-control' %>
+            </div>
+        </div>
+        <div class="col-auto d-flex align-items-end pt-4 mt-2">
+            <%= button_tag type: "submit", class: 'btn btn-outline-primary' do %>
+                <i class="bi bi-search"></i> Поиск
+            <% end %>
+        </div>
+    </div>
+<% end %>
+<div class="row">
+    <!-- Earnings (Monthly) Card Example -->
+    <% @test_cases.each do |test_case|%>
+        <div class="col-12 mb-3">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="h5 font-weight-bold text-primary text-uppercase mb-1">
+                                <a href="<%= show_test_case_path(test_case_id: test_case.id) %>">#<%= test_case.id %> <%= test_case.title %>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>

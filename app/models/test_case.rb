@@ -19,7 +19,7 @@ class TestCase < ApplicationRecord
 
   def generate_uniq_id
     last_id = TestCase.last&.id
-    last_id = last_id&.sub('tc', '')
+    last_id = last_id&.sub('tc-', '')
     self.id = "tc-#{last_id.to_i + 1}"
   end
 end

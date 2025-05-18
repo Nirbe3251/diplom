@@ -1,7 +1,7 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">План тестирования</h1>
     <h1 class="h3 mb-0 text-gray-800"></h1>
-    <% if current_user.roles.remove_test_plan? %>
+    <% if current_user&.roles&.remove_test_plan? %>
         <%= generate_delete_button(@test_plan) %>
     <% end %>
 </div>

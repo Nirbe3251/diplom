@@ -12,10 +12,22 @@ Rails.application.routes.draw do
     end
   end
   resources :checklists
-  resources :test_cases
+  resources :test_cases, except: %w[index show new edit] do
+    collection do
+      post :create_test_suites
+    end
+  end
   resources :roles
   resources :bugreports
   resources :test_plans
 
   get 'user/:id', to: 'users#index', as: 'user'
+
+  get '/test_cases/:id', to: 'test_cases#test_suites', as: 'test_suite'
+  get '/test_cases/:id/new', to: 'test_cases#new', as: 'new_test_case'
+  get '/test_cases', to: 'test_cases#index', as: 'test_suites'
+  get '/test_cases/:id/:test_case_id', to: 'test_cases#show', as: 'show_test_case'
+  get '/test_cases/:id/:test_case_id/edit', to: 'test_cases#edit', as: 'edit_test_case'
+  put '/test_cases/:id/:test_case_id', to: 'test_cases#update', as: 'update_test_case'
+  delete '/test_cases/:id/:test_case_id', to: 'test_cases#destroy', as: 'delete_test_case'
 end

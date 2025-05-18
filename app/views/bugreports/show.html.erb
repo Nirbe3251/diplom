@@ -4,7 +4,7 @@
         <h1 class="align-center h3 text-gray-800">Отчёт об ошибке</h1>
         <div class="d-sm-flex align-items-center justify-content-between">
             <h1 class="h3 mb-0 text-gray-800"></h1>
-            <% if current_user.roles.edit_bug_report? %>
+            <% if current_user&.roles&.edit_bug_report? %>
                 <a href="<%= edit_bugreport_path %>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Редактировать отчёт</a>
             <%end%>
         </div>

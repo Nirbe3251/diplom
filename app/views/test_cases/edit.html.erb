@@ -1,8 +1,10 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
   <h1 class="h3 mb-0 text-gray-800">Тест-кейс <%= @test_case.id %></h1>
   <h1 class="h3 mb-0 text-gray-800"></h1>
-  <% if current_user.roles.remove_test_case? %>
-    <%= generate_delete_button(@test_case) %>
+  <% if current_user&.roles&.remove_test_case? %>
+    <%= link_to delete_test_case_path(test_case_id: @test_case, id: @test_suite), class: "d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm", data: { "turbo-method": :delete, turbo_confirm: "Вы уверены что хотите удалить #{@test_case.humanize.downcase}?" } do %>
+      <%= "Удаление #{@test_case.humanize.downcase}а" %>
+    <% end %>
   <% end %>
 </div>
 <section>
@@ -11,7 +13,7 @@
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-body">
-            <%= form_for '', url: "/test_cases", method: :put, remote: true do |f|%>
+            <%= form_for '', url: update_test_case_path, method: :put, remote: true do |f|%>
               <div class="row">
                 <div class="col-sm-3">
                   <p class="mb-0">Название тест-кейса<i style="color: red">*</i></p>
@@ -84,6 +86,8 @@
                 </div>
               </div>
               <hr>
+              <%= hidden_field_tag 'test_case_id', @test_case.id %>
+              <%= hidden_field_tag 'id', @test_suite.id %>
               <%= f.submit "Сохранить", class: "btn btn-primary btn-user btn-block" %>
           <% end %>  
           </div>
