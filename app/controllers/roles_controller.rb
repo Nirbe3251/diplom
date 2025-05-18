@@ -8,6 +8,7 @@ class RolesController < ApplicationController
   end
 
   def update
+    Rails.logger.info params.permit(role_params)
     render 'replace_roles' if @role.update(params.permit(role_params))
   end
 

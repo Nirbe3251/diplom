@@ -111,7 +111,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:edit_check_list, options_for_select([["Да", 1], ["Нет", 0]]),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:edit_checklist, options_for_select([["Да", 1], ["Нет", 0]]),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -121,7 +121,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:remove_check_list, options_for_select([["Да", 1], ["Нет", 0]]),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:remove_checklist, options_for_select([["Да", 1], ["Нет", 0]]),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -223,7 +223,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:create_test_case, options_for_select([["Да", 1], ["Нет", 0]], role.create_test_case.to_i),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:create_test_case, options_for_select([["Да", 1], ["Нет", 0]], role.create_test_case),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -233,7 +233,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:edit_test_case, options_for_select([["Да", 1], ["Нет", 0]], role.edit_test_case.to_i),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:edit_test_case, options_for_select([["Да", 1], ["Нет", 0]], role.edit_test_case),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -243,7 +243,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:remove_test_case, options_for_select([["Да", 1], ["Нет", 0]], role.remove_test_case.to_i),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:remove_test_case, options_for_select([["Да", 1], ["Нет", 0]], role.remove_test_case),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -253,7 +253,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:create_check_list, options_for_select([["Да", 1], ["Нет", 0]], role.create_check_list.to_i),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:create_check_list, options_for_select([["Да", 1], ["Нет", 0]], role.create_check_list),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -263,7 +263,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:edit_check_list, options_for_select([["Да", 1], ["Нет", 0]], role.edit_checklist.to_i),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:edit_checklist, options_for_select([["Да", 1], ["Нет", 0]], role.edit_checklist),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -273,7 +273,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:remove_check_list, options_for_select([["Да", 1], ["Нет", 0]], role.remove_checklist.to_i),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:remove_checklist, options_for_select([["Да", 1], ["Нет", 0]], role.remove_checklist),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -283,7 +283,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:create_test_plan, options_for_select([["Да", 1], ["Нет", 0]], role.create_test_plan.to_i),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:create_test_plan, options_for_select([["Да", 1], ["Нет", 0]], role.create_test_plan),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -293,7 +293,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:edit_test_plan, options_for_select([["Да", 1], ["Нет", 0]], role.edit_test_plan.to_i),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:edit_test_plan, options_for_select([["Да", 1], ["Нет", 0]], role.edit_test_plan),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -303,7 +303,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:remove_test_plan, options_for_select([["Да", 1], ["Нет", 0]], role.remove_test_plan.to_i),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:remove_test_plan, options_for_select([["Да", 1], ["Нет", 0]], role.remove_test_plan),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -313,7 +313,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:create_bug_report, options_for_select([["Да", 1], ["Нет", 0]], role.create_bug_report.to_i),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:create_bug_report, options_for_select([["Да", 1], ["Нет", 0]], role.create_bug_report),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -323,7 +323,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:edit_bug_report, options_for_select([["Да", 1], ["Нет", 0]], role.edit_bug_report.to_i),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:edit_bug_report, options_for_select([["Да", 1], ["Нет", 0]], role.edit_bug_report),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
@@ -333,7 +333,7 @@
               </td>
               <td>
                 <div class="form-group col-sm-9">
-                  <%= f.select(:remove_bug_report, options_for_select([["Да", 1], ["Нет", 0]], role.remove_bug_report.to_i),{}, { class: "form-control form-control-user", role: 'button'}) %>
+                  <%= f.select(:remove_bug_report, options_for_select([["Да", 1], ["Нет", 0]], role.remove_bug_report),{}, { class: "form-control form-control-user", role: 'button'}) %>
                 </div>
               </td>
             </tr>
