@@ -15,7 +15,7 @@ class AddTestPlan < ActiveRecord::Migration[7.0]
       t.text :documentation
       t.text :metrics
 
-      belongs_to :project
+      t.belongs_to :project
     end
   end
 
