@@ -20,6 +20,11 @@ Rails.application.routes.draw do
   resources :roles
   resources :bugreports
   resources :test_plans
+  resources :releases do
+    member do
+      get :get_chart_data
+    end
+  end
 
   get 'user/:id', to: 'users#index', as: 'user'
 

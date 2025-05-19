@@ -2,6 +2,8 @@ class TestCase < ApplicationRecord
   self.primary_key = :id
   belongs_to :project
 
+  has_many :test_case_status, class_name: 'TestCaseStatus'
+
   before_create { generate_uniq_id }
 
   def self.search(params)

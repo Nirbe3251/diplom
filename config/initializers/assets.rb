@@ -34,6 +34,7 @@ Rails.application.config.assets.precompile += %w[
   sb-admin-2.css
   sb-admin-2.min.css
   sb-admin-2.js
+  highcharts.js
 ]
 Rails.application.config.assets.precompile << 'bootstrap.min.js'
 Rails.application.config.assets.precompile << 'sb-admin-2.js'

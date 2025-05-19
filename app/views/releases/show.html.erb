@@ -1,0 +1,79 @@
+<% id = SecureRandom.hex(8)  %>
+
+<section>
+  <div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="align-center h3 text-gray-800">Релиз</h1>
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <h1 class="h3 mb-0 text-gray-800"></h1>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-2 align-middle">
+                        <p class="mb-0">Название релиза</p>
+                    </div>
+                    <i class="topbar-divider"></i>
+                    <div class="form-group col-sm-8">
+                        <text class="text-center"><%= @release.name %></text>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <p class="mb-0">Проект</p>
+                    </div>
+                    <i class="topbar-divider"></i>
+                    <div class="form-group col-sm-9">
+                        <text class="text-center"><%= @release.project.title %></text>
+                    </div>
+                </div>
+                <hr>
+                <% test_cases = @release.project.test_cases%>
+                <% if test_cases %>
+                    <div class="row">
+                        <div class="col-sm-2 align-middle">
+                            <p class="mb-0">Тест кейсы:</p>
+                        </div>
+                    </div>
+                    <table class="table table-responsive table-borderless align-items-center mb-3 text-wrap">
+                        <thead>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Тест-кейс</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Пройден</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Не пройден</th>
+                        </thead>
+                        <tbody>
+                            <% test_cases.each do |tc| %>
+                                <% row_status = TestCaseStatus.where('test_case_id = ?', tc.id)&.find_by(release_id: @release.id)&.completed ? 'bg-success' : 'bg-danger' %>
+                                <tr class='<%= row_status %>'>
+                                    <td class="align-middle text-center"><%= tc.id %></td>
+                                    <td class="align-middle text-center"><%= tc.title %></td>
+                                    <% if TestCaseStatus.where('test_case_id = ?', tc.id)&.find_by(release_id: @release.id)&.completed %>
+                                        <% Rails.logger.info  %>
+                                        <td class="align-middle text-center"><input type='checkbox' id="check_completed" data-release-id="<%= @release.id %>" data-test-case-id="<%= tc.id %>" checked></td>
+                                        <td class="align-middle text-center"><input type='checkbox' id="check_uncompleted" data-release-id="<%= @release.id %>" data-test-case-id="<%= tc.id %>"></td>
+                                    <% else %>
+                                        <td class="align-middle text-center"><input type='checkbox' id="check_completed" data-release-id="<%= @release.id %>" data-test-case-id="<%= tc.id %>"></td>
+                                        <td class="align-middle text-center"><input type='checkbox' id="check_uncompleted" data-release-id="<%= @release.id %>" data-test-case-id="<%= tc.id %>" checked></td>
+                                    <% end %>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                <% end %>
+                <div id="pie_chart_<%= @release.id %>_container"></div>
+                <div class="btn btn-primary btn-user btn-block" id="add_chart_block_<%= @release.id %>">Завершить</div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+</script>

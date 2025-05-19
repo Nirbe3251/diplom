@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_05_18_103025) do
+ActiveRecord::Schema[7.0].define(version: 2025_05_18_180607) do
   create_table "attachments", charset: "utf8mb3", force: :cascade do |t|
     t.text "description", size: :tiny
     t.string "file_name"
@@ -88,20 +88,26 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_18_103025) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
+  create_table "releases", charset: "utf8mb3", force: :cascade do |t|
+    t.string "name"
+    t.bigint "project_id"
+    t.index ["project_id"], name: "index_releases_on_project_id"
+  end
+
   create_table "roles", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", limit: 45, null: false
     t.integer "create_test_case", default: 0
     t.integer "create_check_list", default: 0
     t.integer "create_test_plan", default: 0
     t.integer "create_bug_report", default: 0
-    t.boolean "edit_test_case"
-    t.boolean "edit_checklist"
-    t.boolean "edit_test_plan"
-    t.boolean "edit_bug_report"
-    t.boolean "remove_test_case"
-    t.boolean "remove_checklist"
-    t.boolean "remove_test_plan"
-    t.boolean "remove_bug_report"
+    t.integer "edit_test_case", default: 0
+    t.integer "edit_checklist", default: 0
+    t.integer "edit_test_plan", default: 0
+    t.integer "edit_bug_report", default: 0
+    t.integer "remove_test_case", default: 0
+    t.integer "remove_checklist", default: 0
+    t.integer "remove_test_plan", default: 0
+    t.integer "remove_bug_report", default: 0
   end
 
   create_table "severities", charset: "utf8mb3", force: :cascade do |t|
@@ -116,6 +122,14 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_18_103025) do
 
   create_table "status_checklists", charset: "utf8mb3", force: :cascade do |t|
     t.boolean "completed", default: false
+  end
+
+  create_table "test_case_statuses", charset: "utf8mb3", force: :cascade do |t|
+    t.boolean "completed"
+    t.bigint "release_id"
+    t.string "test_case_id"
+    t.index ["release_id"], name: "index_test_case_statuses_on_release_id"
+    t.index ["test_case_id"], name: "index_test_case_statuses_on_test_case_id"
   end
 
   create_table "test_cases", id: false, charset: "utf8mb3", force: :cascade do |t|
@@ -152,6 +166,10 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_18_103025) do
     t.text "metrics"
     t.bigint "project_id"
     t.index ["project_id"], name: "index_test_plans_on_project_id"
+  end
+
+  create_table "test_suites", charset: "utf8mb3", force: :cascade do |t|
+    t.string "title", null: false
   end
 
   create_table "users", charset: "utf8mb3", force: :cascade do |t|

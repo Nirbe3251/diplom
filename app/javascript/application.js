@@ -3,6 +3,8 @@ import "@hotwired/turbo-rails"
 import Turbolinks from 'turbolinks'
 import "bootstrap"
 import '@popperjs/core'
+import "highcharts"
+
 import Rails from '@rails/ujs'
 // import 'bootstrap-icons/font/bootstrap-icons.css'
 import * as channels from "./channels"
@@ -60,6 +62,10 @@ document.addEventListener('ready', function() {
 })
 
 document.addEventListener('turbo:load', function() {
+    setOptionsCharts();
+    generateCharts();
+    tabsForReleaseChecks();
+
     let currentLocation = window.location.pathname;
     let parsedLocation = currentLocation.split('/').slice(1).join('_');
     let formContext = localStorage.getItem(parsedLocation);
@@ -159,5 +165,137 @@ function addChecklistBlock(id, moduleId) {
 
         let checklistTextField = document.getElementById(checklistName)
         handleChecklistInput(checklistTextField)
+    });
+};
+
+function setOptionsCharts() {
+    _Highcharts.setOptions({
+        global: { useUTC: false },
+        lang: {
+            loading: 'Загрузка...',
+            months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль',
+                'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+            ],
+            weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+            shortMonths: ['Янв', 'Фев', 'Мрт', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+            decimalPoint: '.',
+            resetZoom: 'Сброс увеличения',
+            resetZoomTitle: 'Сбросить увеличение к масштабу 1:1',
+            thousandsSep: ','
+        },
+        credits: { enabled: false }
+    });
+
+    _Highcharts.stats_charts_config = () => {
+        return {
+            chart: {
+                renderTo: '',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: '',
+                height: 400,
+                zoomType: 'x'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: false,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function() {
+                            return '<b>' + this.point.name + '</b>: ' + (this.percentage < 1 ? this.percentage.toFixed(2) : Math.round(this.percentage)) + ' %';
+                        }
+                    }
+                },
+                spline: {
+                    marker: { enabled: false }
+                }
+            },
+            title: { text: '' },
+            tooltip: { shared: true },
+            xAxis: { type: 'datetime' },
+            yAxis: { title: { text: '' }, min: 0 }
+        }
+    }
+}
+
+function generateCharts() {
+    $('div[id^="add_chart_block"]').on('click', function() {
+        let releaseId = splittedFunc($(this).attr('id'))
+
+        let data = generateChartsData()
+
+        let cfg = _Highcharts.stats_charts_config()
+        let selector = `pie_chart_${releaseId}_container`
+        let id = `#${selector}`
+        console.log(id)
+        if ($(id).length > 0) {
+            cfg['chart']['renderTo'] = selector
+            cfg['chart']['type'] = 'pie'
+            let chart = new _Highcharts.Chart(cfg);
+            chart.showLoading();
+            $.ajax(`/releases/${releaseId}/get_chart_data`, {
+                data: data,
+                success: function(data) {
+                    console.log(data)
+                    chart.hideLoading()
+                    data.forEach(function(s) {
+                        chart.addSeries(s)
+                    })
+                },
+                error: function() {
+                    console.log(err)
+                }
+            });
+        }
+    })
+};
+
+function generateChartsData() {
+    let data = {};
+    let elements = $("input[id^='check']:checked")
+    elements.each(function() {
+        let type = splitted($(this).attr('id'))
+        let testCaseId = $(this).data('test-case-id');
+        if (typeof(data['test_cases']) == 'undefined') {
+            data['test_cases'] = {}
+        }
+        data['test_cases'][testCaseId] = type
+    });
+
+    return data;
+}
+
+function splitted(attr) {
+    let splittedId = attr.split('_');
+    let splitted = splittedId[splittedId.length - 1];
+    return splitted;
+};
+
+function tabsForReleaseChecks() {
+    let elements = $("input[id^='check']")
+    elements.each(function() {
+        let type = splitted($(this).attr('id'))
+        let releaseId = $(this).data('release-id');
+        let testCaseId = $(this).data('test-case-id');
+        let selector = ''
+        $(this).on('click', function() {
+            console.log(type, releaseId, testCaseId)
+            if (type === 'completed') {
+                selector = `input[data-release-id="${releaseId}"][id$="uncompleted"][data-test-case-id="${testCaseId}"]`
+            } else {
+                selector = `input[data-release-id="${releaseId}"][id$="completed"][data-test-case-id="${testCaseId}"]`
+            }
+            console.log(selector)
+            if ($(selector).prop('checked')) {
+                $(selector).prop('checked', false)
+            };
+
+            if (!$(this).prop('checked')) {
+                $(this).prop('checked', true)
+            };
+            console.log($(this).prop('checked'))
+        });
     });
 };

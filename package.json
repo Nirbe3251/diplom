@@ -47,7 +47,8 @@
         "jquery.easing": "^1.4.1",
         "sass": "^1.49.0",
         "turbolinks": "5.2.0",
-        "yarn": "^1.22.22"
+        "yarn": "^1.22.22",
+        "highcharts": "12.2.0"
     },
     "devDependencies": {
         "browser-sync": "2.26.14",
