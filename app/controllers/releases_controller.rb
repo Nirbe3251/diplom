@@ -26,6 +26,8 @@ class ReleasesController < ApplicationController
     Rails.logger.info "Params #{test_cases_params}"
     tests_size = test_cases_params.size
     completed_cases = test_cases_params.select { |_, v| v == 'completed' }.size
+
+    Rails.logger.info "Completed casess siz: #{completed_cases}"
     test_cases_params.each do |k, v|
       tc = TestCase.find_by(id: k)
       Rails.logger.info "tc id: #{tc.id}"
@@ -40,8 +42,11 @@ class ReleasesController < ApplicationController
         TestCaseStatus.create(test_case_id: tc.id, release_id: @release.id, completed:)
       end
     end
-    render json: [{ data: [['Пройдено', completed_cases.size], ['провалено', tests_size - completed_cases]], name: 'Test cases', type: 'pie',
-                    colors: %w[#006400 #8B0000] }]
+
+    data = [{ data: [['Пройдено', completed_cases], ['провалено', tests_size - completed_cases]], name: 'Test cases', type: 'pie',
+              colors: %w[#006400 #8B0000] }]
+
+    render json: data
   end
 
   private
