@@ -35,4 +35,6 @@ Rails.application.routes.draw do
   get '/test_cases/:id/:test_case_id/edit', to: 'test_cases#edit', as: 'edit_test_case'
   put '/test_cases/:id/:test_case_id', to: 'test_cases#update', as: 'update_test_case'
   delete '/test_cases/:id/:test_case_id', to: 'test_cases#destroy', as: 'delete_test_case'
+
+  get '/download_file', to: 'application#download_file', as: 'download_file'
 end

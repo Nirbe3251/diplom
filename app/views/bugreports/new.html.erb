@@ -1,10 +1,16 @@
+<style>
+  .custom-file-input:lang(en) ~ .custom-file-label::after {
+    content: "Поиск" !important;
+  }
+</style>
+
 <section>
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-body">
-            <%= form_for '', url: bugreports_path, method: :post, remote: true do |f|%>
+            <%= form_for '', url: bugreports_path, method: :post, remote: true, html: { id: "bugreports" } do |f|%>
               <div class="row">
                 <div class="col-sm-3">
                   <p class="mb-0">Название отчёта<i style="color: red">*</i></p>
@@ -95,7 +101,17 @@
                 </div>
               </div>
               <hr>
-              <%= f.submit "Сохранить", class: "btn btn-primary btn-user btn-block" %>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Вложения</p>
+                </div>
+                <div class="form-group col-sm-8 custom-file ml-3">
+                  <%= file_field_tag 'attachments[]', multiple: true, class: "custom-file-input", id: 'customFile'  %>
+                  <label class="custom-file-label" for="customFile">Выберите файл</label>
+                </div>
+              </div>
+              <hr>
+              <%= button_tag "Сохранить", type: 'button', class: "btn btn-primary btn-user btn-block", id: "save_bugreports" %>
             </div>
           <% end %>
         </div>

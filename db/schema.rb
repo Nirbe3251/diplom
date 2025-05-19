@@ -10,11 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_05_19_174434) do
+ActiveRecord::Schema[7.0].define(version: 2025_05_19_210708) do
   create_table "attachments", charset: "utf8mb3", force: :cascade do |t|
     t.text "description", size: :tiny
     t.string "file_name"
     t.binary "file"
+    t.text "file_path"
+    t.string "file_ext"
+    t.integer "bugreport_id"
   end
 
   create_table "bug_reports", charset: "utf8mb3", force: :cascade do |t|

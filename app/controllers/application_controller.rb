@@ -26,6 +26,11 @@ class ApplicationController < ActionController::Base
     render json: { message: 'Welcome!' }, status: :ok
   end
 
+  def download_file
+    file = Attachment.find_by(id: params[:id])
+    send_file file.file_path, status: 200
+  end
+
   protected
 
   def configure_permitted_parameters

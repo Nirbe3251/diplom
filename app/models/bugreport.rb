@@ -8,6 +8,8 @@ class Bugreport < ApplicationRecord
 
   validates :title, presence: true
 
+  has_many :attachments
+
   def performer
     User.find_by(id: performer_id)&.name
   end

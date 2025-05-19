@@ -65,6 +65,7 @@ document.addEventListener('turbo:load', function() {
     setOptionsCharts();
     generateCharts();
     tabsForReleaseChecks();
+    fixSelectFiles();
 
     let currentLocation = window.location.pathname;
     let parsedLocation = currentLocation.split('/').slice(1).join('_');
@@ -299,3 +300,37 @@ function tabsForReleaseChecks() {
         });
     });
 };
+
+function fixSelectFiles() {
+    let data = new FormData($('form[id^="bugreports"]')[0]);
+    $('#customFile').on('change', function() {
+        let filesNames = [];
+        let files = this.files
+        if (files.length > 0) {
+            $.each(files, function(id, file) {
+                filesNames.push(file.name)
+                data.append(`attachments[${id}]`, file)
+            });
+            for (const pair of data.entries()) { console.log(pair[0], pair[1]) }
+            $('.custom-file-label').html(filesNames.join(', '))
+        } else {
+            $('.custom-file-label').html('Выберите файл')
+        }
+    });
+
+    $('#save_bugreports').on("click", function() {
+        data = new FormData($('form[id^="bugreports"]')[0]);
+        console.log("submit")
+        $.ajax('/bugreports', {
+            method: 'POST',
+            mimeType: 'multipart/form-data',
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function(data) {
+                console.log(data)
+            }
+        })
+    })
+}

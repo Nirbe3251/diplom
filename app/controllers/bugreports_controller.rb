@@ -13,9 +13,13 @@ class BugreportsController < ApplicationController
   def edit; end
 
   def create
-    bugreport = Bugreport.new(params.permit(bugreport_params))
+    permitted_params = params.permit(bugreport_params)
+    attachments = permitted_params.delete(:attachments)
+
+    bugreport = Bugreport.new(permitted_params)
 
     if bugreport.save
+      Attachment.save_attachments(attachments, bugreport_id: bugreport.id)
       render js: "window.location.replace('#{bugreport_path(id: bugreport.id)}')"
     else
       response = {}
@@ -55,7 +59,9 @@ class BugreportsController < ApplicationController
   end
 
   def bugreport_params
-    %i[title description full_description steps environment comment project_id severity_id priority_id status_id
-       performer_id]
+    default = %i[title description full_description steps environment comment project_id severity_id priority_id status_id
+                 performer_id]
+    default.append({ attachments: [] })
+    default
   end
 end
