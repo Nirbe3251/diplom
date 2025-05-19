@@ -22,7 +22,7 @@ class ReleasesController < ApplicationController
   def show; end
 
   def get_chart_data
-    test_cases_params = params[:test_cases]
+    test_cases_params = params[:test_cases].to_h
     tests_size = test_cases_params.size
     completed_cases = test_cases_params.select { |_, v| v == 'completed' }
     test_cases_params.each do |k, v|
