@@ -44,7 +44,7 @@ class ReleasesController < ApplicationController
     end
 
     data = [{ data: [['Пройдено', completed_cases], ['провалено', tests_size - completed_cases]], name: 'Test cases', type: 'pie',
-              colors: %w[#006400 #8B0000] }]
+              colors: %w[#99FF99 #E4717A] }]
 
     render json: data
   end

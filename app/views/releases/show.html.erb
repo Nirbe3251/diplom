@@ -1,4 +1,12 @@
 <% id = SecureRandom.hex(8)  %>
+<style>
+    .success-status{
+        background-color: #99FF99;
+    }
+    .error-status{
+        background-color: #E4717A;
+    }
+</style>
 
 <section>
   <div class="container-fluid">
@@ -48,7 +56,7 @@
                         </thead>
                         <tbody>
                             <% test_cases.each do |tc| %>
-                                <% row_status = TestCaseStatus.where('test_case_id = ?', tc.id)&.find_by(release_id: @release.id)&.completed ? 'bg-success' : 'bg-danger' %>
+                                <% row_status = TestCaseStatus.where('test_case_id = ?', tc.id)&.find_by(release_id: @release.id)&.completed ? 'success-status' : 'error-status' %>
                                 <tr class='<%= row_status %>'>
                                     <td class="align-middle text-center"><%= tc.id %></td>
                                     <td class="align-middle text-center"><%= tc.title %></td>
