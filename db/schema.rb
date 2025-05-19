@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_05_18_180607) do
+ActiveRecord::Schema[7.0].define(version: 2025_05_19_174434) do
   create_table "attachments", charset: "utf8mb3", force: :cascade do |t|
     t.text "description", size: :tiny
     t.string "file_name"
@@ -91,6 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_18_180607) do
   create_table "releases", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
     t.bigint "project_id"
+    t.string "chart_data"
     t.index ["project_id"], name: "index_releases_on_project_id"
   end
 

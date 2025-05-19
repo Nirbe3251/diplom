@@ -22,9 +22,10 @@ class ReleasesController < ApplicationController
   def show; end
 
   def get_chart_data
-    test_cases_params = params[:test_cases].to_h
+    test_cases_params = params.permit(releases_chart_params)[:test_cases].as_json
+    Rails.logger.info "Params #{test_cases_params}"
     tests_size = test_cases_params.size
-    completed_cases = test_cases_params.select { |_, v| v == 'completed' }
+    completed_cases = test_cases_params.select { |_, v| v == 'completed' }.size
     test_cases_params.each do |k, v|
       tc = TestCase.find_by(id: k)
       Rails.logger.info "tc id: #{tc.id}"
@@ -51,5 +52,9 @@ class ReleasesController < ApplicationController
 
   def find_release
     @release = Release.find_by(id: params[:id])
+  end
+
+  def releases_chart_params
+    [test_cases: {}]
   end
 end
