@@ -318,18 +318,36 @@ function fixSelectFiles() {
         }
     });
 
+    let path = undefined;
+    let method = undefined;
+
+    if (typeof(bugreport_id) === 'undefined') {
+        path = '/bugreports';
+        method = 'POST';
+    } else {
+        path = `/bugreports/${bugreport_id}`;
+        method = 'PUT';
+    }
+
+    console.log('Bugreport id ', bugreport_id)
+
     $('#save_bugreports').on("click", function() {
         data = new FormData($('form[id^="bugreports"]')[0]);
         console.log("submit")
-        $.ajax('/bugreports', {
-            method: 'POST',
+        $.ajax(path, {
+            method: method,
             mimeType: 'multipart/form-data',
             cache: false,
             processData: false,
             contentType: false,
             data: data,
             success: function(data) {
-                console.log(data)
+                let parsedData = JSON.parse(data);
+                let bugreportId = parsedData["bugreport"];
+                window.location.replace(`/bugreports/${bugreportId}`);
+            },
+            error: function(err) {
+                console.log(err);
             }
         })
     })

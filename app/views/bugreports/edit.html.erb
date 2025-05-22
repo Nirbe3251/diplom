@@ -6,13 +6,17 @@
     <% end %>
 </div>
 
+<%= javascript_tag do %>
+  const bugreport_id = '<%= @bugreport.id %>'
+<% end %>
+
 <section>
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-body">
-            <%= form_for '', url: bugreport_path, method: :put do |f|%>
+            <%= form_for '', url: bugreport_path, method: :put, html: { id: "bugreports" } do |f|%>
               <div class="row">
                 <div class="col-sm-3">
                   <p class="mb-0">Название отчёта<i style="color: red">*</i></p>
@@ -122,7 +126,7 @@
                 </div>
               </div>
               <hr>
-              <%= f.submit "Сохранить", class: "btn btn-primary btn-user btn-block" %>
+              <%= button_tag "Сохранить", type: 'button', class: "btn btn-primary btn-user btn-block", id: "save_bugreports" %>
             </div>
           <% end %>
         </div>

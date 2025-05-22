@@ -20,23 +20,28 @@ class BugreportsController < ApplicationController
 
     if bugreport.save
       Attachment.save_attachments(attachments, bugreport_id: bugreport.id)
-      render js: "window.location.replace('#{bugreport_path(id: bugreport.id)}')"
+      render json: { bugreport: bugreport.id }, status: 200
     else
       response = {}
       errors = bugreport.errors.objects
       errors.each { |e| response[e.attribute] = e.message }
-      render 'validates/forms', locals: { errors: response.to_json }
+      render json: { errors: response.to_json }, status: 500
     end
   end
 
   def update
-    if @bugreport.update(params.permit(bugreport_params))
-      redirect_to bugreport_path(id: @bugreport.id)
+    permitted_params = params.permit(bugreport_params)
+    attachments = permitted_params.delete(:attachments)
+    Rails.logger.info "Attachments size #{attachments&.size.to_i}"
+    if @bugreport.update(permitted_params)
+      Attachment.save_attachments(attachments, bugreport_id: @bugreport.id)
+
+      render json: { bugreport: @bugreport.id }, status: 200
     else
       response = {}
       errors = resource.errors.objects
       errors.each { |e| response[e.attribute] = e.message }
-      render 'validates/forms', locals: { errors: response.to_json }
+      render json: { errors: response.to_json }, status: 500
     end
   end
 
