@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
   end
   resources :checklists
-  resources :test_cases, except: %w[index show new edit] do
+  resources :test_cases, except: %w[index show new edit destroy update] do
     collection do
       post :create_test_suites
     end
@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   get '/test_cases/:id/:test_case_id/edit', to: 'test_cases#edit', as: 'edit_test_case'
   put '/test_cases/:id/:test_case_id', to: 'test_cases#update', as: 'update_test_case'
   delete '/test_cases/:id/:test_case_id', to: 'test_cases#destroy', as: 'delete_test_case'
+  delete '/test_cases/:id', to: 'test_cases#destroy_test_suite', as: 'delete_test_suite'
+  put '/test_cases/:id', to: 'test_cases#edit_test_suite', as: 'edit_test_suite'
 
   get '/download_file', to: 'application#download_file', as: 'download_file'
 end

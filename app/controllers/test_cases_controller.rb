@@ -1,9 +1,13 @@
 class TestCasesController < ApplicationController
   before_action :find_test_case, only: %i[show edit update destroy]
-
-  before_action :find_test_suite, only: %i[new test_suites show create update destroy edit]
+  before_action :find_test_suite,
+                only: %i[new test_suites show create update destroy edit destroy_test_suite edit_test_suite]
 
   def self.show_in_navbar? = true
+
+  def self.humanize
+    TestCase.humanize + 'ы'
+  end
 
   def index
     @test_suites = TestSuite.all
@@ -50,8 +54,20 @@ class TestCasesController < ApplicationController
     end
   end
 
-  def self.humanize
-    TestCase.humanize + 'ы'
+  def edit_test_suite
+    if @test_suite.update(params.permit(test_suites_params))
+      redirect_to test_suites_path
+    else
+      render json: { error: 'error' }
+    end
+  end
+
+  def destroy_test_suite
+    if @test_suite.destroy
+      redirect_to test_suites_path
+    else
+      render json: { error: 'error' }
+    end
   end
 
   private

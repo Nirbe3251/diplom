@@ -331,7 +331,6 @@ function fixSelectFiles() {
 
     $('#save_bugreports').on("click", function() {
         data = new FormData($('form[id^="bugreports"]')[0]);
-        console.log("submit")
         $.ajax(path, {
             method: method,
             mimeType: 'multipart/form-data',
