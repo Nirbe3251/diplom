@@ -47,6 +47,7 @@ class ReleasesController < ApplicationController
       status = TestCaseStatus.where('test_case_id = ?', tc.id).find_by(release_id: @release.id)
       Rails.logger.info "Status: #{status.inspect}"
       if status.present?
+        Rails.logger.info "Update status to #{completed}"
         status.update(completed:)
       else
         TestCaseStatus.create(test_case_id: tc.id, release_id: @release.id, completed:)

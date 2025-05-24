@@ -57,15 +57,13 @@
                         </thead>
                         <tbody>
                             <% test_cases.each do |tc| %>
-                                <% row_status = TestCaseStatus.where('test_case_id = ?', tc.id)&.find_by(release_id: @release.id)&.completed ? 'success-status' : 'error-status' %>
-                                <tr class='<%= row_status %>'>
-                                    <td class="align-middle text-center"><%= tc.id %></td>
-                                    <td class="align-middle text-center"><%= tc.title %></td>
+                                <% row_status = release_tc_status(tc, @release.id) %>
+                                <tr class='<%= row_status %>'>                                    <td class="align-middle text-center"><%= tc.id %></td>
+                                    <td class="align-middle text-center"><%= link_to tc.title, path_to_test_case(tc) %></td>
                                     <% if TestCaseStatus.where('test_case_id = ?', tc.id)&.find_by(release_id: @release.id)&.completed %>
-                                        <% Rails.logger.info  %>
                                         <td class="align-middle text-center"><input type='checkbox' id="check_completed" data-release-id="<%= @release.id %>" data-test-case-id="<%= tc.id %>" checked></td>
                                         <td class="align-middle text-center"><input type='checkbox' id="check_uncompleted" data-release-id="<%= @release.id %>" data-test-case-id="<%= tc.id %>"></td>
-                                    <% else %>
+                                    <% elsif row_status == 'error-status'  %>
                                         <td class="align-middle text-center"><input type='checkbox' id="check_completed" data-release-id="<%= @release.id %>" data-test-case-id="<%= tc.id %>"></td>
                                         <td class="align-middle text-center"><input type='checkbox' id="check_uncompleted" data-release-id="<%= @release.id %>" data-test-case-id="<%= tc.id %>" checked></td>
                                     <% end %>
