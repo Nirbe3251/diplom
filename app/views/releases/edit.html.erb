@@ -1,0 +1,33 @@
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-body">
+            <%= form_for '', url: release_path, method: :put, html: { id: "save_form" } do |f|%>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Название релиза<i style="color: red">*</i></p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.text_field :name, class: "form-control form-control-user", placeholder: "Введите название релиза", value: @release.name %>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Проект</p>
+                </div>
+                <div class="form-group col-sm-9">
+                  <%= f.select(:project_id, options_for_select(current_user.projects.all.to_a.map{ |p| [p.title, p.id] }, @release.project.id), {}, { prompt: "Выберите проект", class: "form-control form-control-user w-75", role: 'button'}) %>
+                </div>
+              </div>
+              <hr>
+              <%= f.submit "Сохранить", class: "btn btn-primary btn-user btn-block" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

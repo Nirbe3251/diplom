@@ -43,10 +43,12 @@ function findLastId(children) {
         if (typeof(lastCheckName) === 'undefined') {
             lastId = 0;
         } else {
-            let splittedName = lastCheckName.id.split("[");
-            console.log(splittedName);
-            let elementsCount = splittedName.length;
-            let lastCheck = splittedName[elementsCount - 1].replace(/\]/, '');
+            // let splittedName = lastCheckName.id.split("[");
+            // let elementsCount = splittedName.length;
+            // let lastCheck = splittedName[elementsCount - 1].replace(/\]/, '');
+
+            let lastCheck = $(lastCheckName).data('checklist-id')
+            console.log(lastCheck);
 
             lastId = Number(lastCheck);
             lastId = isNaN(lastId) ? 0 : lastId;
@@ -133,7 +135,7 @@ function genetrateModuleBlock(id, moduleId) {
             <div class="mb-2 ml-3">
                 <p class="mb-0">Список проверок: <i style="color: red">*</i></p>
             </div>
-            <div class="btn btn-primary btn-user btn-block" id=${id}>Добавить проверки</div>
+            <div class="btn btn-primary btn-user btn-block w-25" id=${id}>Добавить проверку</div>
         </div>
     `;
 };
@@ -150,18 +152,37 @@ function addChecklistBlock(id, moduleId) {
         let labelBlock = `<div class="mb-2 ml-3">
             <p class="mb-0">${newId} проверка</p>
         </div>`;
-        let checklistName = `checklists[modules][${moduleId}][checklist][${newId}]`
+        let checklistName = `checklists[modules][${moduleId}][checklist][${newId}][text]`
         let checklistArea = `
             <div class="form-group mb-2 w-75 ml-5">
                 <textarea
                     class="form-control form-control-user"
                     maxlength="5000" style="min-height: 3rem"
-                    placeholder="Введите список проверок"
+                    placeholder="Введите проверку"
                     name=${checklistName}
-                    id=${checklistName}></textarea>
+                    id=${checklistName}
+                    data-checklist-id=${newId}></textarea>
             </div>
         `;
-        $(labelBlock + checklistArea).insertBefore(`#add_checklist_block_${moduleId}`);
+
+        let expectedResultName = `checklists[modules][${moduleId}][checklist][${newId}][expected_result]`
+
+        let expectedResultBlock = `<div class="mb-2 ml-3 expected_result">
+            <p class="mb-0">Ожидаемый результат</p>
+        </div>`;
+        let expectedResultArea = `
+            <div class="form-group mb-2 w-75 ml-5">
+                <input
+                    class="form-control form-control-user"
+                    maxlength="5000" style="min-height: 3rem"
+                    placeholder="Введите ожидаемый результат"
+                    name=${expectedResultName}
+                    id=${expectedResultName}
+                    data-checklist-id=${newId}></input>
+            </div>
+        `;
+
+        $(labelBlock + checklistArea + expectedResultBlock + expectedResultArea).insertBefore(`#add_checklist_block_${moduleId}`);
         $('#save_form').trigger('change')
 
         let checklistTextField = document.getElementById(checklistName)

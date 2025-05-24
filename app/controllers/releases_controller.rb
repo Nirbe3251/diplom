@@ -1,5 +1,5 @@
 class ReleasesController < ApplicationController
-  before_action :find_release, only: %i[show get_chart_data]
+  before_action :find_release, only: %i[show get_chart_data edit update]
 
   def index
     @releases = Release.all.where(project_id: current_user.projects.pluck(:id))
@@ -20,6 +20,16 @@ class ReleasesController < ApplicationController
   end
 
   def show; end
+
+  def edit; end
+
+  def update
+    if @release.update(params.permit(release_params))
+      redirect_to release_path(id: @release.id)
+    else
+      render json: { errors: 'error' }
+    end
+  end
 
   def get_chart_data
     test_cases_params = params.permit(releases_chart_params)[:test_cases].as_json

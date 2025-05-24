@@ -3,12 +3,15 @@ class ModuleCheck < ApplicationRecord
 
   def self.create_checklists(module_id, checklist_params)
     Rails.logger.info "ModuleCheck params #{checklist_params}, checklist module: #{module_id}"
-    checklist_params.each do |position, text|
+    checklist_params.each do |position, params|
+      Rails.logger.info "POSITION #{position}"
+      module_step = params[:text]
+      expected_result = params[:expected_result]
       if find_by(checklist_module_id: module_id, position:)
         check = find_by(checklist_module_id: module_id, position:)
-        check.update(position:, module_step: text)
+        check.update(position:, module_step:, expected_result:)
       else
-        check = create(position:, module_step: text, checklist_module_id: module_id)
+        check = create(position:, module_step:, checklist_module_id: module_id, expected_result:)
       end
       Rails.logger.info "Created check #{check}"
     end

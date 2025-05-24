@@ -25,11 +25,11 @@
             <hr>
             <div class="row">
                 <div class="col-sm-2">
-                    <p class="mb-0">Ожидаемый результат</p>
+                    <p class="mb-0">Проект</p>
                 </div>
                 <i class="topbar-divider"></i>
                 <div class="form-group col-sm-9">
-                    <text class="text-center"><%= @checklist.expected_result %></text>
+                    <text class="text-center"><%= @checklist.project.title %></text>
                 </div>
             </div>
             <hr>
@@ -66,29 +66,24 @@
                                 type="text"
                                 disabled><%= check.module_step %></textarea>
                             </div>
+                            <div class="mb-2 ml-3 expected_result">
+                                <p class="mb-0">Ожидаемый результат</p>
+                            </div>
+                            <div class="form-group mb-2 w-75 ml-5">
+                              <input
+                                  class="form-control form-control-user"
+                                  maxlength="5000" style="min-height: 3rem"
+                                  placeholder="Введите ожидаемый результат"
+                                  name="checklists[modules][<%= test_module.position %>][checklist][<%= check.position %>][expected_result]"
+                                  id="checklists[modules][<%= test_module.position %>][checklist][<%= check.position %>][expected_result]"
+                                  data-checklist-id=<%= check.position %>
+                                  value=<%= check.expected_result %>
+                                  disabled>
+                                </input>
+                          </div>
                         <% end %>
                     </div>
                 <%- end %>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm-2">
-                    <p class="mb-0">Тип тестирования</p>
-                </div>
-                <i class="topbar-divider"></i>
-                <div class="form-group col-sm-9">
-                    <text class="text-center"><%= @checklist.test_type %></text>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm-2">
-                    <p class="mb-0">Проект</p>
-                </div>
-                <i class="topbar-divider"></i>
-                <div class="form-group col-sm-9">
-                    <text class="text-center"><%= @checklist.project.title %></text>
-                </div>
             </div>
             <hr>
           </div>
