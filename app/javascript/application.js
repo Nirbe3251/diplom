@@ -243,36 +243,43 @@ function setOptionsCharts() {
 }
 
 function generateCharts() {
-    $('div[id^="add_chart_block"]').on('click', function() {
-        let releaseId = splittedFunc($(this).attr('id'))
+    // Также используем делегирование для динамических элементов
+    $(document).off('click', 'div[id^="add_chart_block"]').on('click', 'div[id^="add_chart_block"]', function() {
+        let releaseId = splittedFunc($(this).attr('id'));
+        let data = generateChartsData();
+        let cfg = _Highcharts.stats_charts_config();
+        let selector = `pie_chart_${releaseId}_container`;
+        let id = `#${selector}`;
 
-        let data = generateChartsData()
+        console.log(id);
 
-        let cfg = _Highcharts.stats_charts_config()
-        let selector = `pie_chart_${releaseId}_container`
-        let id = `#${selector}`
-        console.log(id)
         if ($(id).length > 0) {
-            cfg['chart']['renderTo'] = selector
-            cfg['chart']['type'] = 'pie'
+            cfg['chart']['renderTo'] = selector;
+            cfg['chart']['type'] = 'pie';
             let chart = new _Highcharts.Chart(cfg);
             chart.showLoading();
+
             $.ajax(`/releases/${releaseId}/get_chart_data`, {
                 data: data,
                 success: function(data) {
-                    console.log(data)
-                    chart.hideLoading()
+                    console.log(data);
+                    chart.hideLoading();
                     data.forEach(function(s) {
-                        chart.addSeries(s)
-                    })
+                        chart.addSeries(s);
+                    });
+
+                    // Обновляем таблицу и переустанавливаем обработчики
+                    $('table').load(location.href + " table", "", function() {
+                        tabsForReleaseChecks();
+                    });
                 },
-                error: function() {
-                    console.log(err)
+                error: function(err) {
+                    console.log(err);
                 }
             });
         }
-    })
-};
+    });
+}
 
 function generateChartsData() {
     let data = {};
@@ -296,31 +303,35 @@ function splitted(attr) {
 };
 
 function tabsForReleaseChecks() {
-    let elements = $("input[id^='check']")
-    elements.each(function() {
-        let type = splitted($(this).attr('id'))
+    // Используем делегирование событий для динамически создаваемых элементов
+    $(document).off('click', "input[id^='check']").on('click', "input[id^='check']", function() {
+        console.log('clicked');
+        let type = splitted($(this).attr('id'));
         let releaseId = $(this).data('release-id');
         let testCaseId = $(this).data('test-case-id');
-        let selector = ''
-        $(this).on('click', function() {
-            console.log(type, releaseId, testCaseId)
-            if (type === 'completed') {
-                selector = `input[data-release-id="${releaseId}"][id$="uncompleted"][data-test-case-id="${testCaseId}"]`
-            } else {
-                selector = `input[data-release-id="${releaseId}"][id$="completed"][data-test-case-id="${testCaseId}"]`
-            }
-            console.log(selector)
-            if ($(selector).prop('checked')) {
-                $(selector).prop('checked', false)
-            };
+        let selector = '';
 
-            if (!$(this).prop('checked')) {
-                $(this).prop('checked', true)
-            };
-            console.log($(this).prop('checked'))
-        });
+        console.log(type, releaseId, testCaseId);
+
+        if (type === 'completed') {
+            selector = `input[data-release-id="${releaseId}"][id$="uncompleted"][data-test-case-id="${testCaseId}"]`;
+        } else {
+            selector = `input[data-release-id="${releaseId}"][id$="completed"][data-test-case-id="${testCaseId}"]`;
+        }
+
+        console.log(selector);
+
+        if ($(selector).prop('checked')) {
+            $(selector).prop('checked', false);
+        }
+
+        if (!$(this).prop('checked')) {
+            $(this).prop('checked', true);
+        }
+
+        console.log($(this).prop('checked'));
     });
-};
+}
 
 function fixSelectFiles() {
     let data = new FormData($('form[id^="bugreports"]')[0]);
