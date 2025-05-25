@@ -10,7 +10,7 @@
         <div class="col-auto pl-0">
             <div class="col-auto">
                 <%= label_tag 'performer', "Исполнитель" %>
-                <%= select_tag(:performer_id, options_for_select(User.all.collect{ |u| [u.name, u.id] }, params[:performer_id] ? params[:performer_id] : ''), { prompt: "Выберите исполнителя", class: "form-control form-control-user", role: 'button'}) %>
+                <%= select_tag(:performer_id, options_for_select(User.all.collect{ |u| [u.full_name, u.id] }, params[:performer_id] ? params[:performer_id] : ''), { prompt: "Выберите исполнителя", class: "form-control form-control-user", role: 'button'}) %>
             </div>
         </div>
         <div class="col-auto d-flex align-items-end pt-4 mt-2">

@@ -2,7 +2,7 @@ class Checklist < ApplicationRecord
   belongs_to :project
   has_many :checklist_module
 
-  DEFAULT_ATTRS = %i[head project_id test_type expected_result].freeze
+  DEFAULT_ATTRS = %i[head project_id test_type].freeze
 
   def self.create_checklist(params)
     Rails.logger.info "Create checklist params #{params}"
@@ -30,9 +30,7 @@ class Checklist < ApplicationRecord
 
     update(default)
 
-    if self.errors.present?
-      Rails.logger.error "Error in #{__method__} with errors: #{self.errors.full_messages.join(', ')}"
-    end
+    Rails.logger.error "Error in #{__method__} with errors: #{errors.full_messages.join(', ')}" if errors.present?
 
     ChecklistModule.create_module_block(params[:checklists], id)
 

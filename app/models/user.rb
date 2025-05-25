@@ -10,4 +10,8 @@ class User < ApplicationRecord
   has_many :projects, through: :project_users, dependent: :destroy
 
   validates :name, :surname, presence: true
+
+  def full_name
+    "#{surname} #{name}"
+  end
 end
