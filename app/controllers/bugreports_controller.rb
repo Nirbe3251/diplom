@@ -19,7 +19,7 @@ class BugreportsController < ApplicationController
     bugreport = Bugreport.new(permitted_params)
 
     if bugreport.save
-      Attachment.save_attachments(attachments, bugreport_id: bugreport.id)
+      Attachment.save_attachments(attachments, bugreport_id: bugreport.id) if attachments.present?
       render json: { bugreport: bugreport.id }, status: 200
     else
       response = {}

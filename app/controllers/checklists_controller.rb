@@ -21,7 +21,11 @@ class ChecklistsController < ApplicationController
   end
 
   def update
-    @checklist.update_checklist(params.permit(check_list_params))
+    if @checklist.update_checklist(params.permit(check_list_params))
+      redirect_to checklist_path(id: @checklist.id)
+    else
+      render json: { errors: @checklist.errors.full_messages.join(', ') }
+    end
   end
 
   def self.humanize

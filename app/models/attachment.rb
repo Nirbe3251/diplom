@@ -2,6 +2,8 @@ class Attachment < ApplicationRecord
   belongs_to :bugreport, foreign_key: :bugreport, optional: true
 
   def self.save_attachments(files, bugreport_id: nil)
+    return unless files.present?
+
     files.each do |file|
       tmp = file.tempfile
       orig = file.original_filename
