@@ -10,6 +10,14 @@ class Bugreport < ApplicationRecord
 
   has_many :attachments
 
+  def self.search(params)
+    res = all
+
+    res = res.where(performer_id: params[:performer_id]) if params[:performer_id].present?
+
+    res
+  end
+
   def performer
     User.find_by(id: performer_id)&.name
   end

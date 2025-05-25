@@ -5,7 +5,21 @@
         <a href="<%= new_bugreport_path %>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Создать отчёт об ошибке</a>
     <% end %>
 </div>
-
+<%= form_tag bugreports_path, method: 'get', class: 'pb-4' do %>
+    <div class="input-group input-group-outline row align-items-center">
+        <div class="col-auto pl-0">
+            <div class="col-auto">
+                <%= label_tag 'performer', "Исполнитель" %>
+                <%= select_tag(:performer_id, options_for_select(User.all.collect{ |u| [u.name, u.id] }, params[:performer_id] ? params[:performer_id] : ''), { prompt: "Выберите исполнителя", class: "form-control form-control-user", role: 'button'}) %>
+            </div>
+        </div>
+        <div class="col-auto d-flex align-items-end pt-4 mt-2">
+            <%= button_tag type: "submit", class: 'btn btn-outline-primary' do %>
+                <i class="bi bi-search"></i> Поиск
+            <% end %>
+        </div>
+    </div>
+<% end %>
 <div class="row">
     <!-- Earnings (Monthly) Card Example -->
     <% @bugreports.each do |bugreport|%>

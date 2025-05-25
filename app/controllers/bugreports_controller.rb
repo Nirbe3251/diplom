@@ -5,7 +5,7 @@ class BugreportsController < ApplicationController
 
   def index
     user_projects_id = current_user.projects.pluck(:id)
-    @bugreports = Bugreport.where(project_id: user_projects_id)
+    @bugreports = Bugreport.where(project_id: user_projects_id).search(params)
   end
 
   def new; end
