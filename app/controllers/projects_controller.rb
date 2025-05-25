@@ -21,9 +21,9 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(params.require(:project).permit(project_params))
-      render json: { status: 'ok', project: @project }, status: 200
+      redirect_to project_path(id: @project.id)
     else
-      render json: { status: 'error' }, status: 500
+      render json: { error: @project.errors.full_messages.join(', ') }, status: 500
     end
   end
 
