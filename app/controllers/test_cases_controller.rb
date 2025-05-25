@@ -42,7 +42,11 @@ class TestCasesController < ApplicationController
   def show; end
 
   def update
-    @test_case.update(params.permit(test_case_params))
+    if @test_case.update(params.permit(test_case_params))
+      redirect_to test_case_path(id: @test_case.id)
+    else
+      render json: { errors: @test_case.errors.full_messages(', ') }
+    end
   end
 
   def destroy
